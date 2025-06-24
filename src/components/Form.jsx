@@ -101,7 +101,7 @@ function Form() {
   const prevStep = () => setStep(step - 1);
 
   return (
-    <div className="bg-white shadow-md p-6 rounded-lg min-w-5xl max-h-[80vh] overflow-y-auto h-fit mx-auto font-primary-regular flex gap-6 mt-10">
+    <div className="bg-white shadow-gray-500 border-1 border-gray-300 p-6 rounded-lg min-w-5xl max-h-[80vh] overflow-y-auto h-fit mx-auto font-primary-regular flex gap-6 mt-10">
       <div className="w-2/3">
         <h2 className="text-2xl font-semibold mb-6 mt-3 tracking-wider text-center">
           {step === 1 && "Personal Details"}

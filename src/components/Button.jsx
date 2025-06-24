@@ -20,7 +20,7 @@ function Button({
     <button
       type={type}
       onClick={onClick}
-      className={`px-14 py-1  font-primary-regular tracking-widest text-lg focus:outline-none bg-blue-600 text-white hover:bg-blue-700 hover:cursor-pointer transition-transform duration-200 hover:scale-105 ${className} `}>
+      className={`px-14 py-1 border-1 border-gray-300 font-primary-regular tracking-widest text-lg focus:outline-none bg-blue-600 text-white hover:bg-blue-700 hover:cursor-pointer transition-transform duration-200 hover:scale-105 ${className} `}>
       {children}
     </button>
   );

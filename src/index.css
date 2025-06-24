@@ -7,7 +7,7 @@
 
 @theme {
   --font-primary-regular: "Cabin", "sans-serif";
- --color-primary-1 : #C9D6FF;
+ --color-primary-1 : #ffefba;
  --color-primary-1-dark: #8FAAFD;
  --font-arial : "Arial"
 
@@ -19,8 +19,9 @@
   background: linear-gradient(
     to right,
     var(--color-primary-1),
-
     var(--color-primary-1)
+
+
   );
 }
 

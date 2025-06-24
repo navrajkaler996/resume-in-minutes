@@ -27,7 +27,7 @@ function Preview() {
       <div className="min-h-screen bg-custom-gradient p-6 font-primary flex flex-col justify-center items-center font-primary-regular">
         <div
           id="resume-content"
-          className="bg-white p-6 rounded shadow text-gray-900 max-h-[1124px] max-w-[794px] font-arial">
+          className="bg-white p-6 rounded text-gray-900 max-h-[1124px] max-w-[794px] font-arial  shadow-gray-500 border-1 border-gray-300">
           <h1 className="text-4xl font-bold">{form?.name}</h1>
           <p className="font-bold text-lg mb-2">{form?.targetRoles}</p>
           <div className="flex gap-50 mb-2">
