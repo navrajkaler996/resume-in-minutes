@@ -4,7 +4,7 @@ import Button from "./Button";
 import Textarea from "./TextArea";
 import Preview from "./Preview";
 import { useNavigate } from "react-router-dom";
-import { generateExperience } from "../services/openAiService";
+import { generateExperience, generateSummary } from "../services/openAiService";
 
 function Form() {
   const navigate = useNavigate();
@@ -36,6 +36,16 @@ function Form() {
         keyPoints: "",
         description:
           "Developed and maintained user interfaces with React. Collaborated with design and backend teams to deliver high-quality features on schedule.",
+      },
+      {
+        jobTitle: "Full stack Developer",
+        company: "Meta",
+        location: "New york city, NY",
+        startDate: "Jan 2023",
+        endDate: "Jun 2024",
+        keyPoints: "",
+        description:
+          "Worked as a full stack developer using Next.js, Node.js, and SQL",
       },
     ],
     targetRoles: "Frontend Developer, UI Engineer",
@@ -77,20 +87,37 @@ function Form() {
   useEffect(() => {
     async function fetchExperience() {
       if (step === 5 && form?.experience?.length > 0) {
-        const keyPoints = await generateExperience(
-          form.experience[0].description
-        );
+        const keyPoints = await generateExperience(form.experience);
 
-        // Example of updating experience with keyPoints:
-        const experienceTemp = form.experience.map((exp, idx) =>
-          idx === 0
-            ? { ...exp, keyPoints } // or keyPoints: keyPointsArray if it's an array
-            : exp
-        );
+        // // Example of updating experience with keyPoints:
+        // const experienceTemp = form.experience.map((exp, idx) =>
+        //   idx === 0
+        //     ? { ...exp, keyPoints } // or keyPoints: keyPointsArray if it's an array
+        //     : exp
+        // );
+
+        const experienceTemp = form.experience.map((exp, i) => {
+          return {
+            ...exp,
+            keyPoints: keyPoints[i],
+          };
+        });
 
         // Deep clone if needed
+
+        let newSummary;
+
+        if (form?.summary?.length > 0) {
+          newSummary = await generateSummary(
+            form?.summary,
+            form?.targetRoles,
+            form?.skills
+          );
+        }
+
         const newForm = structuredClone(form);
         newForm.experience = experienceTemp;
+        newForm.summary = newSummary;
 
         setStep(-1);
 

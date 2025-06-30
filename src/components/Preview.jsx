@@ -18,19 +18,16 @@ function Preview() {
   useEffect(() => {
     const element = document.getElementById("resume-content");
 
-    if (element?.offsetHeight > 1124) setShowLimitLine(true);
+    // if (element?.offsetHeight > 1124) setShowLimitLine(true);
   });
-
   return (
     <>
       <Navbar />
       <div className="min-h-screen bg-custom-gradient p-6 font-primary flex flex-col justify-center items-center font-primary-regular">
-        <div
-          id="resume-content"
-          className="bg-white p-6 rounded text-gray-900 max-h-[1124px] max-w-[794px] font-arial  shadow-gray-500 border-1 border-gray-300">
-          <h1 className="text-4xl font-bold">{form?.name}</h1>
-          <p className="font-bold text-lg mb-2">{form?.targetRoles}</p>
-          <div className="flex gap-50 mb-2">
+        <div id="resume-content" className="resume-content">
+          <h1>{form?.name}</h1>
+          <p className="target-roles">{form?.targetRoles}</p>
+          <div className="contact-row">
             <p>
               <span className="font-bold">Phone:</span> {form?.phone}
             </p>
@@ -38,38 +35,34 @@ function Preview() {
               <span className="font-bold">Email:</span> {form?.email}
             </p>
           </div>
-
-          <p className="mb-2">
+          <p className="address">
             <span className="font-bold">Address:</span> {form?.address},{" "}
             {form?.city}, {form?.province}
           </p>
-          <p>{form?.summary} </p>
-          <hr className="my-4 border-gray-300" />
-          <h2 className="text-3xl font-semibold mt-2 mb-2">Experience</h2>
+
+          <p className="summary">{form?.summary}</p>
+          {/* ... */}
+          <hr />
+          <h2>Experience</h2>
           {form?.experience.map((exp, idx) => (
-            <div key={idx} className="mb-2">
-              <span className="text-lg">
-                {" "}
-                <strong>{exp?.jobTitle}</strong> — {exp?.company},{" "}
-                {exp?.location}{" "}
+            <div key={idx} className="experience-entry">
+              <span className="job-title">{exp?.jobTitle}</span> —{" "}
+              <span className="company-location">
+                {exp?.company}, {exp?.location}{" "}
               </span>
               <br />
-              <span className=" text-md">
-                {" "}
+              <span className="date-range">
                 {exp?.startDate} - {exp?.endDate}
               </span>
-              <br />
-              <ul className="list-disc list-inside">
-                {exp?.keyPoints?.split("*")?.map((k) => (
-                  <li className="text-sm mt-1">{k}</li>
+              <ul>
+                {exp.keyPoints?.map((point, i) => (
+                  <li key={i}>{point}</li>
                 ))}
               </ul>
             </div>
           ))}
-
-          {/* ✅ Skills Section */}
-          <h2 className="text-3xl font-semibold mt-2 mb-2">Skills</h2>
-          <p className="text-sm">
+          <h2>Skills</h2>
+          <p className="skills-section">
             {form?.skills
               ?.split(",")
               .map((skill) => skill.trim())
@@ -77,16 +70,13 @@ function Preview() {
               .map((skill, index, arr) => (
                 <span key={index}>
                   {skill}
-                  {index < arr.length - 1 && (
-                    <span className="mx-2">&bull;</span>
-                  )}
+                  {index < arr.length - 1 && <span> &nbsp;&bull;&nbsp;</span>}
                 </span>
               ))}
           </p>
-
-          <h2 className="text-3xl font-semibold mt-2 mb-2">Education</h2>
+          <h2>Education</h2>
           {form?.education.map((edu, idx) => (
-            <div key={idx} className="mb-2">
+            <div key={idx} className="education-entry">
               <strong>{edu?.degree}</strong> — {edu?.school}
               <br />
               {edu?.field}, {edu?.start} - {edu?.end}
