@@ -26,7 +26,7 @@ function Preview() {
       <div className="min-h-screen bg-custom-gradient p-6 font-primary flex flex-col justify-center items-center font-primary-regular">
         <div id="resume-content" className="resume-content">
           <h1>{form?.name}</h1>
-          <p className="target-roles">{form?.targetRoles}</p>
+          <p className="target-roles">{form?.role}</p>
           <div className="contact-row">
             <p>
               <span className="font-bold">Phone:</span> {form?.phone}

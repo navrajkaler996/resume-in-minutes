@@ -11,12 +11,15 @@ function Form() {
   const [step, setStep] = useState(1);
 
   const [form, setForm] = useState({
+    role: "Fullstack developer",
     name: "John Doe",
     email: "john.doe@example.com",
     phone: "+1 555-1234",
     address: "123 Main Street",
     city: "Toronto",
     province: "Ontario",
+    linkedin: "",
+    website: "",
     education: [
       {
         school: "University of Toronto",
@@ -242,9 +245,23 @@ function Form() {
               onChange={handleChange}
               placeholder="Ontario"
             />
+            <InputField
+              label="LinkedIn Profile"
+              name="linkedin"
+              value={form.linkedin}
+              onChange={handleChange}
+              placeholder="https://linkedin.com/in/yourprofile"
+            />
+            <InputField
+              label="Personal Website"
+              name="website"
+              value={form.website}
+              onChange={handleChange}
+              placeholder="https://yourwebsite.com"
+            />
 
             <div className="flex justify-end">
-              <Button className="" onClick={nextStep}>
+              <Button className="mb-4" onClick={nextStep}>
                 Next
               </Button>
             </div>
@@ -372,11 +389,11 @@ function Form() {
 
             <div className="flex justify-between">
               <Button
-                className="mt-4 bg-gray-500 hover:bg-gray-700 mb-6"
+                className="mt-4 bg-gray-500 hover:bg-gray-700 mb-4"
                 onClick={prevStep}>
                 Back
               </Button>
-              <Button className="mt-4 mb-6" onClick={nextStep}>
+              <Button className="mt-4 mb-4" onClick={nextStep}>
                 Next
               </Button>
             </div>
@@ -384,6 +401,15 @@ function Form() {
         )}
         {step === 4 && (
           <>
+            <div className="mb-4">
+              <InputField
+                label="Your role"
+                name="role"
+                value={form.role}
+                onChange={handleChange}
+                placeholder="e.g. Fullstack developer"
+              />
+            </div>
             <div className="mb-4">
               <InputField
                 label="Target Job Roles (separated by commas)"
@@ -420,12 +446,12 @@ function Form() {
 
             <div className="flex justify-between">
               <Button
-                className="mt-4 bg-gray-500 hover:bg-gray-700 mb-6"
+                className="mt-4 bg-gray-500 hover:bg-gray-700 mb-4"
                 onClick={prevStep}>
                 Back
               </Button>
 
-              <Button className="mt-4 mb-6" onClick={nextStep}>
+              <Button className="mt-4 mb-4" onClick={nextStep}>
                 Next
               </Button>
             </div>
