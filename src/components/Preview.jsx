@@ -60,9 +60,9 @@ function Preview() {
               </span>
               <br />
               <ul className="list-disc list-inside">
-                <li className="text-sm mt-1">{exp?.description}</li>
-                <li className="text-sm mt-1">{exp?.description}</li>
-                <li className="text-sm mt-1">{exp?.description}</li>
+                {exp?.keyPoints?.split("*")?.map((k) => (
+                  <li className="text-sm mt-1">{k}</li>
+                ))}
               </ul>
             </div>
           ))}

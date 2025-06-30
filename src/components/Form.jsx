@@ -4,6 +4,7 @@ import Button from "./Button";
 import Textarea from "./TextArea";
 import Preview from "./Preview";
 import { useNavigate } from "react-router-dom";
+import { generateExperience } from "../services/openAiService";
 
 function Form() {
   const navigate = useNavigate();
@@ -32,6 +33,7 @@ function Form() {
         location: "Toronto, ON",
         startDate: "Jan 2020",
         endDate: "Jun 2023",
+        keyPoints: "",
         description:
           "Developed and maintained user interfaces with React. Collaborated with design and backend teams to deliver high-quality features on schedule.",
       },
@@ -40,9 +42,67 @@ function Form() {
     skills: "JavaScript, React, HTML, CSS, Tailwind, Git, TypeScript",
     summary: "asasas",
   });
+  // useEffect(() => {
+  //   async function fetchExperience() {
+  //     if (form?.experience?.length > 0) {
+  //       const result = await generateExperience(form.experience[0].description);
+
+  //       return result;
+  //     }
+  //   }
+
+  //   if (step === 5) {
+  //     const keyPoints = fetchExperience();
+
+  //     console.log(keyPoints);
+
+  //     // let experienceTemp = form.experience;
+
+  //     // experienceTemp?.forEach((exp) => {
+  //     //   exp.keyPoints = keyPoints;
+  //     // });
+
+  //     // let newForm = structuredClone(form);
+  //     // newForm.experience = structuredClone(experienceTemp);
+  //     setStep(-1);
+
+  //     navigate("/preview", {
+  //       state: {
+  //         form,
+  //       },
+  //     });
+  //   }
+  // }, [step]);
 
   useEffect(() => {
-    if (step == 5) navigate("/preview", { state: { form } });
+    async function fetchExperience() {
+      if (step === 5 && form?.experience?.length > 0) {
+        const keyPoints = await generateExperience(
+          form.experience[0].description
+        );
+
+        // Example of updating experience with keyPoints:
+        const experienceTemp = form.experience.map((exp, idx) =>
+          idx === 0
+            ? { ...exp, keyPoints } // or keyPoints: keyPointsArray if it's an array
+            : exp
+        );
+
+        // Deep clone if needed
+        const newForm = structuredClone(form);
+        newForm.experience = experienceTemp;
+
+        setStep(-1);
+
+        navigate("/preview", {
+          state: {
+            form: newForm,
+          },
+        });
+      }
+    }
+
+    fetchExperience();
   }, [step]);
 
   const handleChange = (e) => {
