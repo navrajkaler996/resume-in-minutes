@@ -97,3 +97,23 @@
     font-weight: bold;
   }
   
+  .project-entry {
+    margin-bottom: 0.5rem;
+  }
+  .project-title {
+    font-size: 1.125rem;
+    font-weight: bold;
+  }
+  .project-tech {
+    font-size: 1rem;
+    
+  }
+  .project-entry ul {
+    list-style-type: disc;
+    padding-left: 1.5rem;
+  }
+  .project-entry li {
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+  }
+  

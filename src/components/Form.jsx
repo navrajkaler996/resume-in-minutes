@@ -4,7 +4,11 @@ import Button from "./Button";
 import Textarea from "./TextArea";
 import Preview from "./Preview";
 import { useNavigate } from "react-router-dom";
-import { generateExperience, generateSummary } from "../services/openAiService";
+import {
+  generateExperience,
+  generateProjectKeyPoints,
+  generateSummary,
+} from "../services/openAiService";
 
 function Form() {
   const navigate = useNavigate();
@@ -12,7 +16,7 @@ function Form() {
 
   const [form, setForm] = useState({
     role: "Fullstack developer",
-    name: "John Doe",
+    name: "",
     email: "john.doe@example.com",
     phone: "+1 555-1234",
     address: "123 Main Street",
@@ -51,10 +55,21 @@ function Form() {
           "Worked as a full stack developer using Next.js, Node.js, and SQL",
       },
     ],
+    projects: [
+      {
+        title: "Resume builder",
+        description:
+          "This project is developed using react and tailwindcss on frontend while Node and express are used in the background",
+        technologies: "React, TailwindCSS, Node.js, Express.js",
+        link: "www.resumebuilder.com",
+      },
+    ],
     targetRoles: "Frontend Developer, UI Engineer",
     skills: "JavaScript, React, HTML, CSS, Tailwind, Git, TypeScript",
     summary: "asasas",
   });
+
+  const [errors, setErrors] = useState({});
   // useEffect(() => {
   //   async function fetchExperience() {
   //     if (form?.experience?.length > 0) {
@@ -89,7 +104,7 @@ function Form() {
 
   useEffect(() => {
     async function fetchExperience() {
-      if (step === 5 && form?.experience?.length > 0) {
+      if (step === 6 && form?.experience?.length > 0) {
         const keyPoints = await generateExperience(form.experience);
 
         // // Example of updating experience with keyPoints:
@@ -118,9 +133,24 @@ function Form() {
           );
         }
 
+        let newProjects;
+        if (form.projects?.length > 0) {
+          const projectKeyPoints = await generateProjectKeyPoints(
+            form.projects
+          );
+
+          newProjects = form.projects.map((proj, i) => ({
+            ...proj,
+            keyPoints: projectKeyPoints[i],
+          }));
+        }
+
         const newForm = structuredClone(form);
         newForm.experience = experienceTemp;
         newForm.summary = newSummary;
+        newForm.projects = newProjects;
+
+        console.log("----", newForm.projects);
 
         setStep(-1);
 
@@ -186,8 +216,48 @@ function Form() {
   const addRole = () => {
     setForm({ ...form, targetRoles: [...form.targetRoles, ""] });
   };
+  const handleProjectChange = (index, e) => {
+    const updated = [...form.projects];
+    updated[index][e.target.name] = e.target.value;
+    setForm({ ...form, projects: updated });
+  };
 
-  const nextStep = () => setStep(step + 1);
+  const addProject = () => {
+    setForm({
+      ...form,
+      projects: [
+        ...form.projects,
+        { title: "", description: "", technologies: "", link: "" },
+      ],
+    });
+  };
+
+  function validatePersonalDetails(form) {
+    const errors = {};
+    if (!form.name || form.name.trim() === "") {
+      errors.name = "Name is required";
+    }
+    if (!form.email || form.email.trim() === "") {
+      errors.email = "Email is required";
+    } else if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(form.email)) {
+      errors.email = "Invalid email format";
+    }
+    return errors;
+  }
+
+  // const nextStep = () => setStep(step + 1);
+
+  const nextStep = () => {
+    if (step === 1) {
+      const validationErrors = validatePersonalDetails(form);
+      if (Object.keys(validationErrors).length > 0) {
+        setErrors(validationErrors);
+        return; // Stop navigation if errors
+      }
+    }
+    setStep(step + 1);
+  };
+
   const prevStep = () => setStep(step - 1);
 
   return (
@@ -197,7 +267,8 @@ function Form() {
           {step === 1 && "Personal Details"}
           {step === 2 && "Educational History"}
           {step === 3 && "Employment History"}
-          {step === 4 && "Additonal info"}
+          {step === 4 && "Projects"}
+          {step === 5 && "Additonal info"}
         </h2>
 
         {/* Step 1: Personal Info */}
@@ -209,14 +280,22 @@ function Form() {
               value={form.name}
               onChange={handleChange}
               placeholder="John Doe"
+              required
             />
+            {errors.name && (
+              <p className="text-red-600 text-xs mb-1">{errors.name}</p>
+            )}
             <InputField
               label="Email"
               name="email"
               value={form.email}
               onChange={handleChange}
               placeholder="john@example.com"
+              required
             />
+            {errors.email && (
+              <p className="text-red-600 text-xs">{errors.email}</p>
+            )}
             <InputField
               label="Phone"
               name="phone"
@@ -401,6 +480,58 @@ function Form() {
         )}
         {step === 4 && (
           <>
+            {form.projects.map((project, index) => (
+              <div key={index} className="mb-6 border-b pb-4">
+                <InputField
+                  label="Project Title"
+                  name="title"
+                  value={project.title}
+                  onChange={(e) => handleProjectChange(index, e)}
+                  placeholder="Portfolio Website"
+                />
+                <Textarea
+                  label="Project Description"
+                  name="description"
+                  value={project.description}
+                  onChange={(e) => handleProjectChange(index, e)}
+                  placeholder="Describe the project, your role, and impact"
+                />
+                <InputField
+                  label="Technologies Used"
+                  name="technologies"
+                  value={project.technologies}
+                  onChange={(e) => handleProjectChange(index, e)}
+                  placeholder="Ex: React, Node.js, MongoDB"
+                />
+                <InputField
+                  label="Project Link"
+                  name="link"
+                  value={project.link}
+                  onChange={(e) => handleProjectChange(index, e)}
+                  placeholder="https://github.com/yourproject"
+                />
+              </div>
+            ))}
+            <button
+              type="button"
+              onClick={addProject}
+              className="text-blue-600 font-medium hover:underline mb-4">
+              + Add Another Project
+            </button>
+            <div className="flex justify-between">
+              <Button
+                className="mt-4 bg-gray-500 hover:bg-gray-700 mb-4"
+                onClick={prevStep}>
+                Back
+              </Button>
+              <Button className="mt-4 mb-4" onClick={nextStep}>
+                Next
+              </Button>
+            </div>
+          </>
+        )}
+        {step === 5 && (
+          <>
             <div className="mb-4">
               <InputField
                 label="Your role"
@@ -459,10 +590,121 @@ function Form() {
         )}
       </div>
 
-      <div className="w-1/3  pl-6 bg-gray-100">
+      <div className="w-1/3  pl-2 pr-2 bg-gray-100">
         <h2 className="text-2xl font-semibold mb-6 mt-3 tracking-wider text-center">
-          Tips
+          Tips{" "}
         </h2>
+
+        <div className="text-sm text-black text-left">
+          <ul className="list-disc list-inside space-y-1">
+            {step === 1 && (
+              <>
+                {" "}
+                <li className="mb-2">
+                  Choose an{" "}
+                  <span className="bg-gray-600 text-white p-1"> email</span>{" "}
+                  that includes your name and avoids nicknames or unprofessional
+                  phrases.
+                </li>
+                <li className="mb-2">
+                  Use a{" "}
+                  <span className="bg-gray-600 text-white p-1"> number</span>{" "}
+                  you answer regularly.
+                </li>
+                <li className="mb-2">
+                  Include your{" "}
+                  <span className="bg-gray-600 text-white p-1"> LinkedIn</span>{" "}
+                  URL if your profile is up to date and matches your resume.
+                </li>
+                <li className="mb-2">
+                  Only include your{" "}
+                  <span className="bg-gray-600 text-white p-1"> website</span>{" "}
+                  if it showcases your work (e.g., portfolio, GitHub, personal
+                  site).
+                </li>
+                <li className="mb-2">
+                  {" "}
+                  <span className="bg-gray-600 text-white p-1">
+                    City
+                  </span> and{" "}
+                  <span className="bg-gray-600 text-white p-1">
+                    {" "}
+                    province/state
+                  </span>{" "}
+                  are usually sufficient.
+                </li>
+              </>
+            )}
+            {step === 2 && (
+              <>
+                {" "}
+                <li className="mb-2">
+                  List your most recent{" "}
+                  <span className="bg-gray-600 text-white p-1">education</span>{" "}
+                  first.
+                </li>
+                <li className="mb-2">
+                  Avoid listing{" "}
+                  <span className="bg-gray-600 text-white p-1">
+                    {" "}
+                    high school
+                  </span>{" "}
+                  if you have a{" "}
+                  <span className="bg-gray-600 text-white p-1">
+                    college degree
+                  </span>{" "}
+                  unless specifically requested.
+                </li>
+              </>
+            )}
+            {step === 3 && (
+              <>
+                {" "}
+                <li className="mb-2">
+                  List your most recent{" "}
+                  <span className="bg-gray-600 text-white p-1">job</span> first
+                  and work backward through your last 10 years of employment.
+                </li>
+                <li className="mb-2">
+                  Include{" "}
+                  <span className="bg-gray-600 text-white p-1">
+                    key details
+                  </span>{" "}
+                  for each job, such as job title, company, location, and dates.
+                </li>
+                <li className="mb-2">
+                  Focus on{" "}
+                  <span className="bg-gray-600 text-white p-1">
+                    achievements
+                  </span>{" "}
+                  over duties to show your impact.
+                </li>
+                <li className="mb-2">
+                  Use{" "}
+                  <span className="bg-gray-600 text-white p-1">
+                    numbers, percentages, or dollar amounts
+                  </span>{" "}
+                  to make your contributions clear and compelling.
+                </li>
+                <li className="mb-2">
+                  Use{" "}
+                  <span className="bg-gray-600 text-white p-1">
+                    keywords and skills
+                  </span>{" "}
+                  from the job description to show you’re a perfect fit.
+                </li>
+                <li className="mb-2">
+                  Show{" "}
+                  <span className="bg-gray-600 text-white p-1">
+                    career progression and recognition
+                  </span>{" "}
+                  by listing promotions or notable awards.
+                </li>
+              </>
+            )}
+          </ul>
+        </div>
+
         {/* <ul className="list-disc list-inside space-y-2 text-gray-700 text-sm">
           {step === 1 && (
             <>

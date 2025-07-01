@@ -71,3 +71,34 @@ export async function generateSummary(
     return "Something went wrong while generating the summary.";
   }
 }
+
+export async function generateProjectKeyPoints(projectsArray) {
+  try {
+    const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
+
+    const results = await Promise.all(
+      projectsArray.map(async (proj) => {
+        const prompt = `Write 3 concise bullet points for this project: ${proj.title}  based on this project description: ${proj.description} and technologies used: ${proj.technologies}. Just give the points and separate each with a *`;
+        const result = await model.generateContent(prompt);
+        const response = await result.response;
+        const text = response.text();
+
+        // Split into bullet points
+        const keyPoints = text
+          .split("*")
+          .map((point) => point.trim())
+          .filter((point) => point.length > 0);
+
+        return keyPoints;
+      })
+    );
+
+    // Returns an array of arrays of bullet points (one array per project)
+    return results;
+  } catch (error) {
+    console.error("Gemini Error:", error);
+    return projectsArray.map(() => [
+      "Something went wrong while generating project key points.",
+    ]);
+  }
+}

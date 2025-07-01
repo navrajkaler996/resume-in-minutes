@@ -74,6 +74,39 @@ function Preview() {
                 </span>
               ))}
           </p>
+          {form.projects && form.projects.length > 0 && (
+            <>
+              <h2 className="text-[26px] font-semibold mt-2 mb-2">Projects</h2>
+              {form.projects.map((proj, idx) => (
+                <div key={idx} className="project-entry">
+                  <span className="project-title">{proj?.title}</span>
+                  {proj?.link && (
+                    <>
+                      {" "}
+                      —{" "}
+                      <a
+                        href={proj.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-blue-600 underline">
+                        {proj.link}
+                      </a>
+                    </>
+                  )}
+                  <br />
+                  <span className="project-tech">{proj?.technologies}</span>
+                  <ul>
+                    {proj?.keyPoints?.length > 0
+                      ? proj.keyPoints.map((point, i) => (
+                          <li key={i}>{point}</li>
+                        ))
+                      : proj?.description && <li>{proj.description}</li>}
+                  </ul>
+                </div>
+              ))}
+            </>
+          )}
+
           <h2>Education</h2>
           {form?.education.map((edu, idx) => (
             <div key={idx} className="education-entry">
