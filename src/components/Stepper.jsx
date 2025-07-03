@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
@@ -40,11 +40,15 @@ const ThickStepConnector = styled(StepConnector)(({ theme }) => ({
   },
 }));
 
-export default function StepperMU() {
+export default function StepperMU({ step }) {
   const [activeStep, setActiveStep] = useState(0);
 
   const handleNext = () => setActiveStep((prev) => prev + 1);
   const handleBack = () => setActiveStep((prev) => prev - 1);
+
+  useEffect(() => {
+    setActiveStep(step);
+  }, [step]);
 
   return (
     <div className="bg-primary-1 flex justify-center">

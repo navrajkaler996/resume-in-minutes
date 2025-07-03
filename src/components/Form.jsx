@@ -10,9 +10,17 @@ import {
   generateSummary,
 } from "../services/openAiService";
 
-function Form() {
+import CircularProgress from "@mui/material/CircularProgress";
+
+const loadingMessages = [
+  "Creating template...",
+  "Connecting with AI...",
+  "Generating your resume...",
+  "Finalizing details...",
+];
+
+function Form({ step, setStep }) {
   const navigate = useNavigate();
-  const [step, setStep] = useState(1);
 
   const [form, setForm] = useState({
     role: "Fullstack developer",
@@ -70,6 +78,8 @@ function Form() {
   });
 
   const [errors, setErrors] = useState({});
+
+  const [messageIndex, setMessageIndex] = useState(0);
   // useEffect(() => {
   //   async function fetchExperience() {
   //     if (form?.experience?.length > 0) {
@@ -103,8 +113,25 @@ function Form() {
   // }, [step]);
 
   useEffect(() => {
+    if (step !== 6 && step !== -1) {
+      setMessageIndex(0); // Reset when not loading
+      return;
+    }
+    if (messageIndex === loadingMessages.length - 1) return;
+
+    const interval = setInterval(() => {
+      setMessageIndex((prev) =>
+        prev < loadingMessages.length - 1 ? prev + 1 : prev
+      );
+    }, 2000);
+
+    return () => clearInterval(interval);
+  }, [step, messageIndex]);
+
+  useEffect(() => {
     async function fetchExperience() {
       if (step === 6 && form?.experience?.length > 0) {
+        console.log("----");
         const keyPoints = await generateExperience(form.experience);
 
         // // Example of updating experience with keyPoints:
@@ -150,9 +177,9 @@ function Form() {
         newForm.summary = newSummary;
         newForm.projects = newProjects;
 
-        console.log("----", newForm.projects);
-
         setStep(-1);
+
+        console.log("---", newForm);
 
         navigate("/preview", {
           state: {
@@ -259,6 +286,17 @@ function Form() {
   };
 
   const prevStep = () => setStep(step - 1);
+
+  if (step === 6 || step === -1) {
+    return (
+      <div className="flex flex-col justify-center items-center h-[70vh] w-full">
+        <CircularProgress size="80px" />
+        <div className="mt-8 text-lg font-primary-regular font-semibold">
+          {loadingMessages[messageIndex]}
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col">
