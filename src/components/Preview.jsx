@@ -2,6 +2,8 @@ import html2pdf from "html2pdf.js";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import Navbar from "./Navbar";
+import Gauge from "./Gauge";
+import expandIcon from "../assets/expand.png";
 
 function Preview() {
   const location = useLocation();
@@ -23,6 +25,30 @@ function Preview() {
   return (
     <>
       <Navbar />
+      <div className="bg-primary-1 flex flex-col items-center justify-center relative">
+        {" "}
+        <Gauge
+          value={70}
+          pointerColor="red"
+          text={({ value, valueMax }) => `${value} / ${valueMax}`}
+        />
+        <div className="flex justify-around align-middle w-2xl">
+          <div>
+            <img
+              src={expandIcon}
+              className="w-10 h-10 hover:cursor-pointer"
+              alt="Expand"
+            />
+          </div>
+          <div className="text-center">
+            <p className="text-5xl font-primary-regular">45%</p>
+            <p className="font-primary-regular">Resume strength</p>
+          </div>
+          <div>
+            <p className="text-4xl text-red-600">B-</p>
+          </div>
+        </div>
+      </div>
       <div className="min-h-screen bg-custom-gradient p-6 font-primary flex flex-col justify-center items-center font-primary-regular">
         <div id="resume-content" className="resume-content">
           <h1>{form?.name}</h1>
