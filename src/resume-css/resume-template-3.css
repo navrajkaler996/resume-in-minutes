@@ -1,0 +1,146 @@
+/* Container */
+
+#resume-content {
+    background: #fff;
+    padding: 1.5rem;
+    border-radius: 1rem;
+    color: #1a202c; /* Tailwind's gray-900 */
+    height: 1122px;
+    max-width: 794px;
+    font-family: Arial, sans-serif;
+    box-shadow: 0 4px 6px -1px rgba(107, 114, 128, 0.5);
+    border: 1px solid #d1d5db; /* Tailwind's gray-300 */
+    font-size: 14px;
+    font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
+  }
+  
+  /* Header */
+  .resume-header {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    border-bottom: 2px solid #e2e8f0;
+    padding-bottom: .5rem;
+    margin-bottom: 1rem;
+  }
+  
+  @media (min-width: 768px) {
+    .resume-header {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+  
+  .resume-header-name {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 0.25rem;
+  }
+  
+  .resume-header-role {
+    font-size: 1.25rem;
+
+    margin-bottom: 0.25rem;
+  }
+  
+  .resume-header-contact {
+    display: flex;
+    justify-content: space-between;
+    
+    width: 100%;
+    font-size: 1rem;
+    color: #64748b;
+    text-align: right;
+    margin-top: .5rem;
+  }
+  
+  .resume-header-contact span {
+    font-weight: 600;
+    margin-right: 0.3em;
+  }
+  
+  /* Section Titles */
+  .resume-section-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    color: #0f172a;
+  }
+  
+  /* Summary */
+  .resume-summary {
+    margin-bottom: .5rem;
+    color: #475569;
+  }
+  
+  /* Experience, Projects, Education Cards */
+  .resume-card-list {
+    display: grid;
+
+    margin-bottom: .5rem;
+  }
+  
+  .resume-card {
+
+    padding: .25rem 1.25rem;
+
+  }
+
+  .resume-title-container {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .resume-card-title {
+    font-weight: 700;
+    font-size: 1.1rem;
+  }
+  
+  .resume-card-subtitle {
+    color: #64748b;
+    font-size: 1rem;
+    margin-bottom: 0.25rem;
+  }
+  
+  .resume-card-dates {
+    color: #94a3b8;
+    font-size: 0.95rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .resume-card ul {
+    list-style-type: disc;
+    margin: 0rem 0 0 1rem;
+    color: #334155;
+    font-size: 14px;
+  }
+  
+  /* Skills Badges */
+  .resume-skills-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: .5rem;
+    padding: .25rem 1.25rem;
+    font-size: 16px;
+  }
+  
+  
+  /* Links */
+  .resume-link {
+    color: #16a34a;
+    text-decoration: underline;
+    font-size: 0.98em;
+    margin-left: 0.5em;
+  }
+  
+  .resume-card-tech {
+    color: #0e7490;
+    font-size: 0.97em;
+    margin-bottom: 0.3em;
+  }
+  

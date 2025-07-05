@@ -3,7 +3,7 @@ import InputField from "./InputField";
 import Button from "./Button";
 import Textarea from "./TextArea";
 import Preview from "./Preview";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   generateExperience,
   generateProjectKeyPoints,
@@ -21,10 +21,11 @@ const loadingMessages = [
 
 function Form({ step, setStep }) {
   const navigate = useNavigate();
+  const { templateid } = useParams();
 
   const [form, setForm] = useState({
     role: "Fullstack developer",
-    name: "",
+    name: "John Doe",
     email: "john.doe@example.com",
     phone: "+1 555-1234",
     address: "123 Main Street",
@@ -150,7 +151,7 @@ function Form({ step, setStep }) {
 
         console.log("---", newForm);
 
-        navigate("/preview", {
+        navigate(`/preview/${templateid}`, {
           state: {
             form: newForm,
           },
@@ -436,6 +437,7 @@ function Form({ step, setStep }) {
                       onChange={(e) => handleExperienceChange(index, e)}
                       placeholder="Frontend Developer"
                     />
+
                     <InputField
                       label="Company"
                       name="company"
@@ -443,6 +445,11 @@ function Form({ step, setStep }) {
                       onChange={(e) => handleExperienceChange(index, e)}
                       placeholder="Google"
                     />
+                    {errors.company && (
+                      <p className="text-red-600 text-xs mb-1">
+                        {errors.company}
+                      </p>
+                    )}
                     <InputField
                       label="Location"
                       name="location"
@@ -639,6 +646,38 @@ function Form({ step, setStep }) {
                   <li className="mb-2">
                     Show career progression and recognition by listing
                     promotions or notable awards.
+                  </li>
+                </>
+              )}
+              {step === 4 && (
+                <>
+                  <li className="mb-2">
+                    List projects that best demonstrate your skills and are most
+                    relevant to the job or field you’re targeting.
+                  </li>
+                  <li className="mb-2">
+                    Summarize what the project does, its purpose, and your role
+                    in it.
+                  </li>
+                  <li className="mb-2">
+                    If available, provide a link to the project (GitHub, live
+                    demo, portfolio, etc.).
+                  </li>
+                </>
+              )}
+              {step === 5 && (
+                <>
+                  <li className="mb-2">
+                    Clearly define your role. It should match as much as it can
+                    with your experience and skills.
+                  </li>
+                  <li className="mb-2">
+                    Only include target roles that are relevant and meaningful,
+                    as these will help shape your resume summary.
+                  </li>
+                  <li className="mb-2">
+                    Make sure your listed skills align with your roles,
+                    experience, and targeted positions.
                   </li>
                 </>
               )}

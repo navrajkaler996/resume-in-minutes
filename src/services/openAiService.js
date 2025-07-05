@@ -16,7 +16,8 @@ export async function generateExperience(userInputArray) {
     // Map each experience to a prompt and get AI results
     const results = await Promise.all(
       userInputArray.map(async (exp) => {
-        const prompt = `Write 3 to 5 bullet points for a resume experience section based on this: ${exp.description}. Note: just give the points and separate each of them with a *`;
+        if (exp?.jobTitle?.length > 0 === 0) return;
+        const prompt = `Write 3 bullet points for a resume experience section based on this: ${exp.description}. Note: just give the points and separate each of them with a *`;
         const result = await model.generateContent(prompt);
         const response = await result.response;
         const text = response.text();
@@ -51,7 +52,7 @@ export async function generateSummary(
   try {
     const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
 
-    const prompt = `Rewrite the following rough resume summary into a polished, professional summary for a resume. Moreover, these are the roles targeted by the user: ${targettedRolesInput} and these are the skills the user possesses: ${skillsInput}. No options needed. Just one output. Make it 4 to 5 lines long:\n\n${summaryInput}\n\n`;
+    const prompt = `Rewrite the following rough resume summary into a polished, professional summary for a resume. Moreover, these are the roles targeted by the user: ${targettedRolesInput} and these are the skills the user possesses: ${skillsInput}. No options needed. Just one output. Make it no more than 350 characters:\n\n${summaryInput}\n\n`;
 
     const result = await model.generateContent(prompt);
     const response = await result.response;
@@ -78,6 +79,7 @@ export async function generateProjectKeyPoints(projectsArray) {
 
     const results = await Promise.all(
       projectsArray.map(async (proj) => {
+        if (proj?.title?.length === 0) return;
         const prompt = `Write 3 concise bullet points for this project: ${proj.title}  based on this project description: ${proj.description} and technologies used: ${proj.technologies}. Just give the points and separate each with a *`;
         const result = await model.generateContent(prompt);
         const response = await result.response;

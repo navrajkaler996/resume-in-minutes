@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 
 import html2pdf from "html2pdf.js";
 
@@ -14,10 +14,12 @@ import {
 } from "../helper";
 
 import downloadButton from "../assets/downloads.png";
+import getTemplate from "../others/getTemplate";
 
 function Preview() {
   const location = useLocation();
   const form = location.state?.form;
+  const { templateid } = useParams();
 
   const [showLimitLine, setShowLimitLine] = useState(false);
   const [score, setScore] = useState(0);
@@ -42,97 +44,7 @@ function Preview() {
       <Navbar />
       <div className="flex justify-between w-full p-6 mt-10">
         <div className=" w-2/3min-h-screen bg-custom-gradient  p-6  flex flex-col justify-center items-center font-primary-regular">
-          <div id="resume-content" className="resume-content">
-            <h1>{form?.name}</h1>
-            <p className="target-roles">{form?.role}</p>
-            <div className="contact-row">
-              <p>
-                <span className="font-bold">Phone:</span> {form?.phone}
-              </p>
-              <p>
-                <span className="font-bold">Email:</span> {form?.email}
-              </p>
-            </div>
-            <p className="address">
-              <span className="font-bold">Address:</span> {form?.address},{" "}
-              {form?.city}, {form?.province}
-            </p>
-
-            <p className="summary">{form?.summary}</p>
-            {/* ... */}
-            <hr />
-            <h2>Experience</h2>
-            {form?.experience.map((exp, idx) => (
-              <div key={idx} className="experience-entry">
-                <span className="job-title">{exp?.jobTitle}</span> —{" "}
-                <span className="company-location">
-                  {exp?.company}, {exp?.location}{" "}
-                </span>
-                <br />
-                <span className="date-range">
-                  {exp?.startDate} - {exp?.endDate}
-                </span>
-                <ul>
-                  {exp.keyPoints?.map((point, i) => (
-                    <li key={i}>{point}</li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-            <h2>Skills</h2>
-            <p className="skills-section">
-              {form?.skills
-                ?.split(",")
-                .map((skill) => skill.trim())
-                .filter(Boolean)
-                .map((skill, index, arr) => (
-                  <span key={index}>
-                    {skill}
-                    {index < arr.length - 1 && <span> &nbsp;&bull;&nbsp;</span>}
-                  </span>
-                ))}
-            </p>
-            {form.projects && form.projects.length > 0 && (
-              <>
-                <h2>Projects</h2>
-                {form.projects.map((proj, idx) => (
-                  <div key={idx} className="project-entry">
-                    <span className="project-title">{proj?.title}</span>
-                    {proj?.link && (
-                      <>
-                        {" "}
-                        —{" "}
-                        <a
-                          href={proj.link}
-                          target="_blank"
-                          rel="noopener noreferrer">
-                          {proj.link}
-                        </a>
-                      </>
-                    )}
-                    <br />
-                    <span className="project-tech">{proj?.technologies}</span>
-                    <ul>
-                      {proj?.keyPoints?.length > 0
-                        ? proj.keyPoints.map((point, i) => (
-                            <li key={i}>{point}</li>
-                          ))
-                        : proj?.description && <li>{proj.description}</li>}
-                    </ul>
-                  </div>
-                ))}
-              </>
-            )}
-
-            <h2>Education</h2>
-            {form?.education.map((edu, idx) => (
-              <div key={idx} className="education-entry">
-                <strong>{edu?.degree}</strong> — {edu?.school}
-                <br />
-                {edu?.field}, {edu?.start} - {edu?.end}
-              </div>
-            ))}
-          </div>
+          {templateid > 0 && form && getTemplate(Number(templateid), form)}
         </div>
 
         <div className="flex flex-col items-center relative w-1/3 p-6">

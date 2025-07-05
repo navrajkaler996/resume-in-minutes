@@ -1,5 +1,12 @@
 // src/components/InputField.jsx
-function InputField({ label, value, onChange, name, placeholder }) {
+function InputField({
+  label,
+  value,
+  onChange,
+  name,
+  placeholder,
+  required = false,
+}) {
   return (
     <div className="mb-4">
       <label className="block text-sm font-medium mb-1 text-gray-500">
@@ -11,6 +18,7 @@ function InputField({ label, value, onChange, name, placeholder }) {
         onChange={onChange}
         placeholder={placeholder}
         className="w-full px-4 py-2 border-1 border-gray-300  rounded-md focus:outline-none focus:ring-1 focus:ring-theme-1 focus:border-0"
+        required={required}
       />
     </div>
   );

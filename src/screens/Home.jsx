@@ -43,7 +43,7 @@ function App() {
 
               <Button
                 className="mt-4 px-20 py-2 border-1 border-gray-400"
-                onClick={() => navigate("/form")}>
+                onClick={() => navigate("/template")}>
                 Get started
               </Button>
             </>
