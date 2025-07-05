@@ -7,9 +7,11 @@
 
 @theme {
   --font-primary-regular: "Cabin", "sans-serif";
- --color-primary-1 : #f7f7f7;
+ --color-primary-1 : #fff;
  --color-primary-1-dark: #8FAAFD;
- --font-arial : "Arial"
+ --font-arial : "Arial";
+ --color-theme-1: #ff4fa1;
+ --color-theme-2: #e84393
 
 
 

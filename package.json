@@ -21,6 +21,7 @@
     "openai": "^5.7.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
+    "react-gauge-component": "^1.2.64",
     "react-router-dom": "^7.6.2"
   },
   "devDependencies": {

@@ -10,7 +10,7 @@ const FormScreen = () => {
     <>
       <Navbar />
       <StepperMU step={step - 1} />
-      <div className="min-h-screen bg-custom-gradient p-6 font-primary flex justify-center font-primary-regular">
+      <div className="min-h-screen w-full bg-custom-gradient p-6 font-primary flex font-primary-regular">
         <Form step={step} setStep={setStep} />
       </div>
     </>

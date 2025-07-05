@@ -80,37 +80,6 @@ function Form({ step, setStep }) {
   const [errors, setErrors] = useState({});
 
   const [messageIndex, setMessageIndex] = useState(0);
-  // useEffect(() => {
-  //   async function fetchExperience() {
-  //     if (form?.experience?.length > 0) {
-  //       const result = await generateExperience(form.experience[0].description);
-
-  //       return result;
-  //     }
-  //   }
-
-  //   if (step === 5) {
-  //     const keyPoints = fetchExperience();
-
-  //     console.log(keyPoints);
-
-  //     // let experienceTemp = form.experience;
-
-  //     // experienceTemp?.forEach((exp) => {
-  //     //   exp.keyPoints = keyPoints;
-  //     // });
-
-  //     // let newForm = structuredClone(form);
-  //     // newForm.experience = structuredClone(experienceTemp);
-  //     setStep(-1);
-
-  //     navigate("/preview", {
-  //       state: {
-  //         form,
-  //       },
-  //     });
-  //   }
-  // }, [step]);
 
   useEffect(() => {
     if (step !== 6 && step !== -1) {
@@ -275,6 +244,8 @@ function Form({ step, setStep }) {
   // const nextStep = () => setStep(step + 1);
 
   const nextStep = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+
     if (step === 1) {
       const validationErrors = validatePersonalDetails(form);
       if (Object.keys(validationErrors).length > 0) {
@@ -285,12 +256,16 @@ function Form({ step, setStep }) {
     setStep(step + 1);
   };
 
-  const prevStep = () => setStep(step - 1);
+  const prevStep = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+
+    setStep(step - 1);
+  };
 
   if (step === 6 || step === -1) {
     return (
       <div className="flex flex-col justify-center items-center h-[70vh] w-full">
-        <CircularProgress size="80px" />
+        <CircularProgress size="80px" style={{ color: "#ff4fa1" }} />
         <div className="mt-8 text-lg font-primary-regular font-semibold">
           {loadingMessages[messageIndex]}
         </div>
@@ -299,8 +274,8 @@ function Form({ step, setStep }) {
   }
 
   return (
-    <div className="flex flex-col">
-      <div className="bg-white shadow-gray-500 border-1 border-b-0 border-gray-300 p-6 rounded-lg min-w-5xl max-h-[60vh] overflow-y-auto h-fit mx-auto font-primary-regular flex gap-6 mt-10">
+    <div className="flex flex-col w-full">
+      <div className="bg-white shadow-gray-500  p-6 rounded-lg w-full  overflow-y-auto h-fit mx-auto font-primary-regular flex gap-6">
         <div className="w-2/3">
           <h2 className="text-2xl font-semibold mb-6 mt-3 tracking-wider text-center">
             {step === 1 && "Personal Details"}
@@ -312,113 +287,131 @@ function Form({ step, setStep }) {
 
           {/* Step 1: Personal Info */}
           {step === 1 && (
-            <>
-              <InputField
-                label="Full Name"
-                name="name"
-                value={form.name}
-                onChange={handleChange}
-                placeholder="John Doe"
-                required
-              />
-              {errors.name && (
-                <p className="text-red-600 text-xs mb-1">{errors.name}</p>
-              )}
-              <InputField
-                label="Email"
-                name="email"
-                value={form.email}
-                onChange={handleChange}
-                placeholder="john@example.com"
-                required
-              />
-              {errors.email && (
-                <p className="text-red-600 text-xs">{errors.email}</p>
-              )}
-              <InputField
-                label="Phone"
-                name="phone"
-                value={form.phone}
-                onChange={handleChange}
-                placeholder="+1 555-1234"
-              />
-              <InputField
-                label="Address"
-                name="address"
-                value={form.address}
-                onChange={handleChange}
-                placeholder="123 Main St"
-              />
-              <InputField
-                label="City"
-                name="city"
-                value={form.city}
-                onChange={handleChange}
-                placeholder="Toronto"
-              />
-              <InputField
-                label="Province"
-                name="province"
-                value={form.province}
-                onChange={handleChange}
-                placeholder="Ontario"
-              />
-              <InputField
-                label="LinkedIn Profile"
-                name="linkedin"
-                value={form.linkedin}
-                onChange={handleChange}
-                placeholder="https://linkedin.com/in/yourprofile"
-              />
-              <InputField
-                label="Personal Website"
-                name="website"
-                value={form.website}
-                onChange={handleChange}
-                placeholder="https://yourwebsite.com"
-              />
-            </>
+            <div className="grid grid-cols-2 gap-x-6 gap-y-4">
+              <div>
+                <InputField
+                  label="Full Name"
+                  name="name"
+                  value={form.name}
+                  onChange={handleChange}
+                  placeholder="John Doe"
+                  required
+                />
+                {errors.name && (
+                  <p className="text-red-600 text-xs mb-1">{errors.name}</p>
+                )}
+              </div>
+              <div>
+                <InputField
+                  label="Email"
+                  name="email"
+                  value={form.email}
+                  onChange={handleChange}
+                  placeholder="john@example.com"
+                  required
+                />
+                {errors.email && (
+                  <p className="text-red-600 text-xs">{errors.email}</p>
+                )}
+              </div>
+              <div>
+                <InputField
+                  label="Phone"
+                  name="phone"
+                  value={form.phone}
+                  onChange={handleChange}
+                  placeholder="+1 555-1234"
+                />
+              </div>
+              <div>
+                <InputField
+                  label="Address"
+                  name="address"
+                  value={form.address}
+                  onChange={handleChange}
+                  placeholder="123 Main St"
+                />
+              </div>
+              <div>
+                <InputField
+                  label="City"
+                  name="city"
+                  value={form.city}
+                  onChange={handleChange}
+                  placeholder="Toronto"
+                />
+              </div>
+              <div>
+                <InputField
+                  label="Province"
+                  name="province"
+                  value={form.province}
+                  onChange={handleChange}
+                  placeholder="Ontario"
+                />
+              </div>
+              <div>
+                <InputField
+                  label="LinkedIn Profile"
+                  name="linkedin"
+                  value={form.linkedin}
+                  onChange={handleChange}
+                  placeholder="https://linkedin.com/in/yourprofile"
+                />
+              </div>
+              <div>
+                <InputField
+                  label="Personal Website"
+                  name="website"
+                  value={form.website}
+                  onChange={handleChange}
+                  placeholder="https://yourwebsite.com"
+                />
+              </div>
+            </div>
           )}
 
           {step === 2 && (
             <>
               {form.education.map((entry, index) => (
                 <div key={index} className="mb-6 border-b pb-4">
-                  <InputField
-                    label="School / University"
-                    name="school"
-                    value={entry.school}
-                    onChange={(e) => handleEducationChange(index, e)}
-                    placeholder="University of Toronto"
-                  />
-                  <InputField
-                    label="Degree / Qualification"
-                    name="degree"
-                    value={entry.degree}
-                    onChange={(e) => handleEducationChange(index, e)}
-                    placeholder="Bachelor of Science"
-                  />
-                  <InputField
-                    label="Field of Study"
-                    name="field"
-                    value={entry.field}
-                    onChange={(e) => handleEducationChange(index, e)}
-                    placeholder="Computer Science"
-                  />
-                  <InputField
-                    label="Start Year"
-                    name="start"
-                    value={entry.start}
-                    onChange={(e) => handleEducationChange(index, e)}
-                    placeholder="2019"
-                  />
-                  <InputField
-                    label="End Year"
-                    name="end"
-                    value={entry.end}
-                    onChange={(e) => handleEducationChange(index, e)}
-                    placeholder="2023"
-                  />
+                  <div className="grid grid-cols-2 gap-x-6 gap-y-4">
+                    <InputField
+                      label="School / University"
+                      name="school"
+                      value={entry.school}
+                      onChange={(e) => handleEducationChange(index, e)}
+                      placeholder="University of Toronto"
+                    />
+                    <InputField
+                      label="Degree / Qualification"
+                      name="degree"
+                      value={entry.degree}
+                      onChange={(e) => handleEducationChange(index, e)}
+                      placeholder="Bachelor of Science"
+                    />
+                    <InputField
+                      label="Field of Study"
+                      name="field"
+                      value={entry.field}
+                      onChange={(e) => handleEducationChange(index, e)}
+                      placeholder="Computer Science"
+                    />
+                    <InputField
+                      label="Start Year"
+                      name="start"
+                      value={entry.start}
+                      onChange={(e) => handleEducationChange(index, e)}
+                      placeholder="2019"
+                    />
+                    <InputField
+                      label="End Year"
+                      name="end"
+                      value={entry.end}
+                      onChange={(e) => handleEducationChange(index, e)}
+                      placeholder="2023"
+                    />
+                  </div>
                 </div>
               ))}
 
@@ -428,18 +421,6 @@ function Form({ step, setStep }) {
                 className="text-blue-600 font-medium hover:underline mb-4">
                 + Add Another Education
               </button>
-
-              {/* <div className="flex justify-between ">
-                <Button
-                  className="mt-4 bg-gray-500 hover:bg-gray-700 mb-6"
-                  onClick={prevStep}>
-                  Back
-                </Button>
-
-                <Button className="mt-4 mb-6" onClick={nextStep}>
-                  Next
-                </Button>
-              </div> */}
             </>
           )}
 
@@ -447,48 +428,53 @@ function Form({ step, setStep }) {
             <>
               {form.experience.map((job, index) => (
                 <div key={index} className="mb-6 border-b pb-4">
-                  <InputField
-                    label="Job Title"
-                    name="jobTitle"
-                    value={job.jobTitle}
-                    onChange={(e) => handleExperienceChange(index, e)}
-                    placeholder="Frontend Developer"
-                  />
-                  <InputField
-                    label="Company"
-                    name="company"
-                    value={job.company}
-                    onChange={(e) => handleExperienceChange(index, e)}
-                    placeholder="Google"
-                  />
-                  <InputField
-                    label="Location"
-                    name="location"
-                    value={job.location}
-                    onChange={(e) => handleExperienceChange(index, e)}
-                    placeholder="Toronto, ON"
-                  />
-                  <InputField
-                    label="Start Date"
-                    name="startDate"
-                    value={job.startDate}
-                    onChange={(e) => handleExperienceChange(index, e)}
-                    placeholder="Jan 2020"
-                  />
-                  <InputField
-                    label="End Date"
-                    name="endDate"
-                    value={job.endDate}
-                    onChange={(e) => handleExperienceChange(index, e)}
-                    placeholder="Jun 2023"
-                  />
-                  <Textarea
-                    label="Job Description"
-                    name="description"
-                    value={job.description || ""}
-                    onChange={(e) => handleExperienceChange(index, e)}
-                    placeholder="Describe your responsibilities and achievements"
-                  />
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4">
+                    <InputField
+                      label="Job Title"
+                      name="jobTitle"
+                      value={job.jobTitle}
+                      onChange={(e) => handleExperienceChange(index, e)}
+                      placeholder="Frontend Developer"
+                    />
+                    <InputField
+                      label="Company"
+                      name="company"
+                      value={job.company}
+                      onChange={(e) => handleExperienceChange(index, e)}
+                      placeholder="Google"
+                    />
+                    <InputField
+                      label="Location"
+                      name="location"
+                      value={job.location}
+                      onChange={(e) => handleExperienceChange(index, e)}
+                      placeholder="Toronto, ON"
+                    />
+                    <InputField
+                      label="Start Date"
+                      name="startDate"
+                      value={job.startDate}
+                      onChange={(e) => handleExperienceChange(index, e)}
+                      placeholder="Jan 2020"
+                    />
+                    <InputField
+                      label="End Date"
+                      name="endDate"
+                      value={job.endDate}
+                      onChange={(e) => handleExperienceChange(index, e)}
+                      placeholder="Jun 2023"
+                    />
+                    {/* Make the description span both columns */}
+                    <div className="md:col-span-2">
+                      <Textarea
+                        label="Job Description"
+                        name="description"
+                        value={job.description || ""}
+                        onChange={(e) => handleExperienceChange(index, e)}
+                        placeholder="Describe your responsibilities and achievements"
+                      />
+                    </div>
+                  </div>
                 </div>
               ))}
 
@@ -498,51 +484,46 @@ function Form({ step, setStep }) {
                 className="text-blue-600 font-medium hover:underline mb-4">
                 + Add Another Job
               </button>
-
-              <div className="flex justify-between">
-                <Button
-                  className="mt-4 bg-gray-500 hover:bg-gray-700 mb-4"
-                  onClick={prevStep}>
-                  Back
-                </Button>
-                <Button className="mt-4 mb-4" onClick={nextStep}>
-                  Next
-                </Button>
-              </div>
             </>
           )}
+
           {step === 4 && (
             <>
               {form.projects.map((project, index) => (
                 <div key={index} className="mb-6 border-b pb-4">
-                  <InputField
-                    label="Project Title"
-                    name="title"
-                    value={project.title}
-                    onChange={(e) => handleProjectChange(index, e)}
-                    placeholder="Portfolio Website"
-                  />
-                  <Textarea
-                    label="Project Description"
-                    name="description"
-                    value={project.description}
-                    onChange={(e) => handleProjectChange(index, e)}
-                    placeholder="Describe the project, your role, and impact"
-                  />
-                  <InputField
-                    label="Technologies Used"
-                    name="technologies"
-                    value={project.technologies}
-                    onChange={(e) => handleProjectChange(index, e)}
-                    placeholder="Ex: React, Node.js, MongoDB"
-                  />
-                  <InputField
-                    label="Project Link"
-                    name="link"
-                    value={project.link}
-                    onChange={(e) => handleProjectChange(index, e)}
-                    placeholder="https://github.com/yourproject"
-                  />
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4">
+                    <InputField
+                      label="Project Title"
+                      name="title"
+                      value={project.title}
+                      onChange={(e) => handleProjectChange(index, e)}
+                      placeholder="Portfolio Website"
+                    />
+                    <InputField
+                      label="Technologies Used"
+                      name="technologies"
+                      value={project.technologies}
+                      onChange={(e) => handleProjectChange(index, e)}
+                      placeholder="Ex: React, Node.js, MongoDB"
+                    />
+                    <InputField
+                      label="Project Link"
+                      name="link"
+                      value={project.link}
+                      onChange={(e) => handleProjectChange(index, e)}
+                      placeholder="https://github.com/yourproject"
+                    />
+                    {/* Make the description span both columns */}
+                    <div className="md:col-span-2">
+                      <Textarea
+                        label="Project Description"
+                        name="description"
+                        value={project.description}
+                        onChange={(e) => handleProjectChange(index, e)}
+                        placeholder="Describe the project, your role, and impact"
+                      />
+                    </div>
+                  </div>
                 </div>
               ))}
               <button
@@ -551,21 +532,12 @@ function Form({ step, setStep }) {
                 className="text-blue-600 font-medium hover:underline mb-4">
                 + Add Another Project
               </button>
-              <div className="flex justify-between">
-                <Button
-                  className="mt-4 bg-gray-500 hover:bg-gray-700 mb-4"
-                  onClick={prevStep}>
-                  Back
-                </Button>
-                <Button className="mt-4 mb-4" onClick={nextStep}>
-                  Next
-                </Button>
-              </div>
             </>
           )}
+
           {step === 5 && (
             <>
-              <div className="mb-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4 mb-4">
                 <InputField
                   label="Your role"
                   name="role"
@@ -573,8 +545,6 @@ function Form({ step, setStep }) {
                   onChange={handleChange}
                   placeholder="e.g. Fullstack developer"
                 />
-              </div>
-              <div className="mb-4">
                 <InputField
                   label="Target Job Roles (separated by commas)"
                   name="targetRoles"
@@ -582,9 +552,6 @@ function Form({ step, setStep }) {
                   onChange={handleChange}
                   placeholder="e.g. Frontend Developer, UI/UX Designer"
                 />
-              </div>
-
-              <div className="mb-4">
                 <InputField
                   label="Skills (separated by commas)"
                   name="skills"
@@ -592,32 +559,19 @@ function Form({ step, setStep }) {
                   onChange={handleChange}
                   placeholder="e.g. JavaScript, React, Team Leadership"
                 />
-              </div>
-
-              <div className="mb-4">
-                <label className="block text-sm font-medium text-gray-500 mb-1">
-                  Professional Summary
-                </label>
-                <textarea
-                  name="summary"
-                  value={form.summary}
-                  onChange={handleChange}
-                  placeholder="Write a short paragraph about your experience, goals, or strengths."
-                  rows={6}
-                  className="w-full px-4 py-2 bg-gray-100 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
-                />
-              </div>
-
-              <div className="flex justify-between">
-                <Button
-                  className="mt-4 bg-gray-500 hover:bg-gray-700 mb-4"
-                  onClick={prevStep}>
-                  Back
-                </Button>
-
-                <Button className="mt-4 mb-4" onClick={nextStep}>
-                  Next
-                </Button>
+                {/* Empty div to keep grid alignment if you want only 3 fields in the first row */}
+                <div></div>
+                {/* Summary textarea spanning both columns */}
+                <div className="md:col-span-2">
+                  <Textarea
+                    label="Professional Summary"
+                    name="summary"
+                    value={form.summary}
+                    onChange={handleChange}
+                    placeholder="Write a short paragraph about your experience, goals, or strengths."
+                    rows={6}
+                  />
+                </div>
               </div>
             </>
           )}
@@ -627,7 +581,6 @@ function Form({ step, setStep }) {
           <h2 className="text-2xl font-semibold mb-6 mt-3 tracking-wider text-center">
             Tips{" "}
           </h2>
-
           <div className="text-sm text-black text-left">
             <ul className="list-disc list-inside space-y-1">
               {step === 1 && (
@@ -691,33 +644,9 @@ function Form({ step, setStep }) {
               )}
             </ul>
           </div>
-
-          {/* <ul className="list-disc list-inside space-y-2 text-gray-700 text-sm">
-          {step === 1 && (
-            <>
-              <li>Use your full legal name.</li>
-              <li>Provide a professional email address.</li>
-              <li>Double-check your phone number.</li>
-            </>
-          )}
-          {step === 2 && (
-            <>
-              <li>Include your most relevant education first.</li>
-              <li>Add honors or distinctions if applicable.</li>
-              <li>Don’t forget the start and end years.</li>
-            </>
-          )}
-          {step === 3 && (
-            <>
-              <li>List jobs in reverse chronological order.</li>
-              <li>Focus on responsibilities and accomplishments.</li>
-              <li>Include job location and duration.</li>
-            </>
-          )}
-        </ul> */}
         </div>
       </div>
-      <div className="border-t-0 min-w-5xl flex justify-between bg-white shadow-gray-500 border-1 border-gray-300">
+      <div className="border-t-0 w-2/3 flex justify-between bg-white">
         {step !== 1 ? (
           <Button
             className="mb-4 mt-2 ml-10 bg-gray-500 hover:bg-gray-700"
