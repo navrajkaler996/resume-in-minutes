@@ -16,7 +16,7 @@ export async function generateExperience(userInputArray) {
     // Map each experience to a prompt and get AI results
     const results = await Promise.all(
       userInputArray.map(async (exp) => {
-        if (exp?.jobTitle?.length > 0 === 0) return;
+        if (exp?.jobTitle?.length === 0) return;
         const prompt = `Write 3 bullet points for a resume experience section based on this: ${exp.description}. Note: just give the points and separate each of them with a *`;
         const result = await model.generateContent(prompt);
         const response = await result.response;

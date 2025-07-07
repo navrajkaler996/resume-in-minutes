@@ -42,15 +42,29 @@ export function calculateResumeScore(form) {
 
   // Education (15%)
   if (form.education.length > 0) {
-    const edu = form.education[0];
-    const eduFields = [edu.school, edu.degree, edu.field, edu.start, edu.end];
-    const eduFilled = eduFields.filter(Boolean).length;
-    score += (eduFilled / eduFields.length) * 15;
+    // Filter out entries where degree or school is empty
+    let educationModified = form.education.filter(
+      (exp) => exp?.degree?.length > 0 && exp?.school?.length > 0
+    );
+
+    // Calculate score for each valid education entry and sum up
+    let eduScore = 0;
+    educationModified.forEach((edu) => {
+      const eduFields = [edu.school, edu.degree, edu.field, edu.start, edu.end];
+      const eduFilled = eduFields.filter(Boolean).length;
+      eduScore += (eduFilled / eduFields.length) * 15;
+    });
+
+    score += eduScore;
   }
 
   function calculateExperienceScore(experiences) {
+    let experienceModified = experiences?.filter(
+      (exp) => exp?.jobTitle?.length > 0 && exp?.company?.length > 0
+    );
+
     let expScore = 0;
-    experiences.forEach((exp) => {
+    experienceModified.forEach((exp) => {
       const expFields = [
         exp.jobTitle,
         exp.company,
@@ -70,19 +84,25 @@ export function calculateResumeScore(form) {
       }
       expScore += Math.min(baseScore + bonus, 1); // Cap at 1 per experience
     });
-    return expScore / experiences.length;
+    return expScore / experienceModified.length;
   }
+
+  let experience = true;
 
   // Usage in your main score function:
   if (form.experience.length > 0) {
     const expScore = calculateExperienceScore(form.experience);
     score += expScore * 25;
-  }
+  } else experience = false;
 
-  // Projects (10%)
+  // Projects (10% or 35%)
   if (form.projects.length > 0) {
     let projScore = 0;
-    form.projects.forEach((proj) => {
+
+    let projectsModified = form?.projects?.filter(
+      (proj) => proj?.title?.length > 0
+    );
+    projectsModified.forEach((proj) => {
       const projFields = [
         proj.title,
         proj.description,
@@ -92,7 +112,9 @@ export function calculateResumeScore(form) {
       const projFilled = projFields.filter(Boolean).length;
       projScore += projFilled / projFields.length;
     });
-    score += (projScore / form.projects.length) * 10;
+
+    if (experience) score += (projScore / projectsModified.length) * 10;
+    else score += (projScore / projectsModified.length) * 35;
   }
 
   // Skills (10%)

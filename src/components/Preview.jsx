@@ -39,6 +39,7 @@ function Preview() {
     console.log(html2pdf(element));
     html2pdf(element);
   };
+
   return (
     <>
       <Navbar />

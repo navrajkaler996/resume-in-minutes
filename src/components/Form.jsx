@@ -101,9 +101,8 @@ function Form({ step, setStep }) {
   useEffect(() => {
     async function fetchExperience() {
       if (step === 6 && form?.experience?.length > 0) {
-        console.log("----");
         const keyPoints = await generateExperience(form.experience);
-
+        console.log("----", keyPoints);
         // // Example of updating experience with keyPoints:
         // const experienceTemp = form.experience.map((exp, idx) =>
         //   idx === 0
@@ -148,8 +147,6 @@ function Form({ step, setStep }) {
         newForm.projects = newProjects;
 
         setStep(-1);
-
-        console.log("---", newForm);
 
         navigate(`/preview/${templateid}`, {
           state: {
@@ -242,6 +239,8 @@ function Form({ step, setStep }) {
     return errors;
   }
 
+  const validateExperience = (experience) => {};
+
   // const nextStep = () => setStep(step + 1);
 
   const nextStep = () => {
@@ -253,6 +252,10 @@ function Form({ step, setStep }) {
         setErrors(validationErrors);
         return; // Stop navigation if errors
       }
+    }
+
+    if (step === 3) {
+      validateExperience(form.experience);
     }
     setStep(step + 1);
   };

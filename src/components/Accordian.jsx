@@ -41,7 +41,7 @@ export default function Accordion({
           className={`${bodyBg} border ${bodyBorder} rounded-xl shadow p-6 mx-auto w-full`}>
           {suggestions.length > 0 ? (
             <ul className="list-none space-y-3">
-              {suggestions.map((suggestion, idx) => (
+              {[...new Set(suggestions)].map((suggestion, idx) => (
                 <li key={idx} className="flex items-center text-gray-800">
                   <span className={`${iconColor} text-xl mr-2`}>{icon}</span>
                   <span>{suggestion}</span>

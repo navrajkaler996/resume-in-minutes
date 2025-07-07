@@ -18,28 +18,31 @@ const getTemplate = (templateId, form) => {
             <span className="font-bold">Address:</span> {form?.address},{" "}
             {form?.city}, {form?.province}
           </p>
-
           <p className="summary">{form?.summary}</p>
           {/* ... */}
           <hr />
-          <h2>Experience</h2>
-          {form?.experience.map((exp, idx) => (
-            <div key={idx} className="experience-entry">
-              <span className="job-title">{exp?.jobTitle}</span> —{" "}
-              <span className="company-location">
-                {exp?.company}, {exp?.location}{" "}
-              </span>
-              <br />
-              <span className="date-range">
-                {exp?.startDate} - {exp?.endDate}
-              </span>
-              <ul>
-                {exp.keyPoints?.map((point, i) => (
-                  <li key={i}>{point}</li>
-                ))}
-              </ul>
-            </div>
-          ))}
+          {form?.experience?.length > 0 && (
+            <>
+              <h2>Experience</h2>
+              {form?.experience.map((exp, idx) => (
+                <div key={idx} className="experience-entry">
+                  <span className="job-title">{exp?.jobTitle}</span> —{" "}
+                  <span className="company-location">
+                    {exp?.company}, {exp?.location}{" "}
+                  </span>
+                  <br />
+                  <span className="date-range">
+                    {exp?.startDate} - {exp?.endDate}
+                  </span>
+                  <ul>
+                    {exp.keyPoints?.map((point, i) => (
+                      <li key={i}>{point}</li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </>
+          )}
           <h2>Skills</h2>
           <p className="skills-section">
             {form?.skills
@@ -87,15 +90,22 @@ const getTemplate = (templateId, form) => {
               })}
             </>
           )}
-
-          <h2>Education</h2>
-          {form?.education.map((edu, idx) => (
-            <div key={idx} className="education-entry">
-              <strong>{edu?.degree}</strong> — {edu?.school}
-              <br />
-              {edu?.field}, {edu?.start} - {edu?.end}
-            </div>
-          ))}
+          {form.education && form.education.length > 0 && (
+            <>
+              <h2>Education</h2>
+              {form?.education.map((edu, idx) => {
+                if (edu?.school?.length === 0 || edu?.degree?.length === 0)
+                  return;
+                return (
+                  <div key={idx} className="education-entry">
+                    <strong>{edu?.degree}</strong> — {edu?.school}
+                    <br />
+                    {edu?.field}, {edu?.start} - {edu?.end}
+                  </div>
+                );
+              })}
+            </>
+          )}
         </div>
       );
 
@@ -129,28 +139,39 @@ const getTemplate = (templateId, form) => {
           <div className="resume-summary">{form?.summary}</div>
 
           {/* Experience */}
-          <div className="resume-section-title">💼 Experience</div>
-          <div className="resume-card-list">
-            {form?.experience?.map((exp, idx) => (
-              <div key={idx} className="resume-card">
-                <div className="resume-title-container">
-                  <div className="resume-card-title">{exp?.jobTitle}</div>
-                  <span className="resume-card-dates">
-                    {exp?.startDate} - {exp?.endDate}
-                  </span>
-                </div>
-                <span className="resume-card-subtitle">
-                  {exp?.company}, {exp?.location}
-                </span>
-
-                <ul>
-                  {exp?.keyPoints?.map((point, i) => (
-                    <li key={i}>{point}</li>
-                  ))}
-                </ul>
+          {form?.experience && form.experience.length > 0 && (
+            <>
+              <div className="resume-section-title">💼 Experience</div>
+              <div className="resume-card-list">
+                {form.experience.map((exp, idx) => {
+                  // Skip rendering if jobTitle or company is empty
+                  if (
+                    exp.jobTitle.trim().length === 0 ||
+                    exp.company.trim().length === 0
+                  )
+                    return;
+                  return (
+                    <div key={idx} className="resume-card">
+                      <div className="resume-title-container">
+                        <div className="resume-card-title">{exp.jobTitle}</div>
+                        <span className="resume-card-dates">
+                          {exp.startDate} - {exp.endDate}
+                        </span>
+                      </div>
+                      <span className="resume-card-subtitle">
+                        {exp.company}, {exp.location}
+                      </span>
+                      <ul>
+                        {exp?.keyPoints?.map((point, i) => (
+                          <li key={i}>{point}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  );
+                })}
               </div>
-            ))}
-          </div>
+            </>
+          )}
 
           {/* Skills */}
           <div className="resume-section-title">🛠️ Skills</div>
@@ -167,51 +188,70 @@ const getTemplate = (templateId, form) => {
             <>
               <div className="resume-section-title">🚀 Projects</div>
               <div className="resume-card-list">
-                {form.projects.map((proj, idx) => (
-                  <div key={idx} className="resume-card">
-                    <div className="resume-card-title resume-title-container">
-                      {proj?.title}
-                      {proj?.link && (
-                        <a
-                          href={proj.link}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="resume-link">
-                          {proj.link}
-                        </a>
-                      )}
+                {form.projects.map((proj, idx) => {
+                  if (proj?.title?.length === 0) return;
+
+                  return (
+                    <div key={idx} className="resume-card">
+                      <div className="resume-card-title resume-title-container">
+                        {proj?.title}
+                        {proj?.link && (
+                          <a
+                            href={proj.link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="resume-link">
+                            {proj.link}
+                          </a>
+                        )}
+                      </div>
+                      <div className="resume-card-tech">
+                        {proj?.technologies}
+                      </div>
+                      <ul>
+                        {proj?.keyPoints?.length > 0
+                          ? proj.keyPoints.map((point, i) => (
+                              <li key={i}>{point}</li>
+                            ))
+                          : proj?.description && <li>{proj.description}</li>}
+                      </ul>
                     </div>
-                    <div className="resume-card-tech">{proj?.technologies}</div>
-                    <ul>
-                      {proj?.keyPoints?.length > 0
-                        ? proj.keyPoints.map((point, i) => (
-                            <li key={i}>{point}</li>
-                          ))
-                        : proj?.description && <li>{proj.description}</li>}
-                    </ul>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             </>
           )}
 
           {/* Education */}
-          <div className="resume-section-title">🎓 Education</div>
-          <div className="resume-card-list">
-            {form?.education?.map((edu, idx) => (
-              <div key={idx} className="resume-card">
-                <div className="resume-title-container">
-                  <div className="resume-card-title">
-                    {edu?.degree}, {edu?.field}
-                  </div>
-                  <div className="resume-card-dates">
-                    {edu?.start} - {edu?.end}
-                  </div>
-                </div>
-                <div className="resume-card-subtitle">{edu?.school}</div>
+          {form?.education && form.education.length > 0 && (
+            <>
+              <div className="resume-section-title">🎓 Education</div>
+              <div className="resume-card-list">
+                {form.education.map((edu, idx) => {
+                  if (
+                    !edu?.school ||
+                    edu.school.length === 0 ||
+                    !edu?.degree ||
+                    edu.degree.length === 0
+                  )
+                    return null;
+                  return (
+                    <div key={idx} className="resume-card">
+                      <div className="resume-title-container">
+                        <div className="resume-card-title">
+                          {edu.degree}, {edu.field}
+                        </div>
+                        <div className="resume-card-dates">
+                          {edu.start} - {edu.end}
+                        </div>
+                      </div>
+                      <div className="resume-card-subtitle">{edu.school}</div>
+                    </div>
+                  );
+                })}
               </div>
-            ))}
-          </div>
+            </>
+          )}
         </div>
       );
 
@@ -245,28 +285,40 @@ const getTemplate = (templateId, form) => {
           <div className="resume-summary">{form?.summary}</div>
 
           {/* Experience */}
-          <div className="resume-section-title">Experience</div>
-          <div className="resume-card-list">
-            {form?.experience?.map((exp, idx) => (
-              <div key={idx} className="resume-card">
-                <div className="resume-title-container">
-                  <div className="resume-card-title">{exp?.jobTitle}</div>
-                  <span className="resume-card-dates">
-                    {exp?.startDate} - {exp?.endDate}
-                  </span>
-                </div>
-                <span className="resume-card-subtitle">
-                  {exp?.company}, {exp?.location}
-                </span>
+          {form?.experience && form?.experience?.length > 0 && (
+            <>
+              {" "}
+              <div className="resume-section-title">Experience</div>
+              <div className="resume-card-list">
+                {form?.experience?.map((exp, idx) => {
+                  if (
+                    exp.jobTitle.trim().length === 0 ||
+                    exp.company.trim().length === 0
+                  )
+                    return;
+                  return (
+                    <div key={idx} className="resume-card">
+                      <div className="resume-title-container">
+                        <div className="resume-card-title">{exp?.jobTitle}</div>
+                        <span className="resume-card-dates">
+                          {exp?.startDate} - {exp?.endDate}
+                        </span>
+                      </div>
+                      <span className="resume-card-subtitle">
+                        {exp?.company}, {exp?.location}
+                      </span>
 
-                <ul>
-                  {exp?.keyPoints?.map((point, i) => (
-                    <li key={i}>{point}</li>
-                  ))}
-                </ul>
+                      <ul>
+                        {exp?.keyPoints?.map((point, i) => (
+                          <li key={i}>{point}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  );
+                })}
               </div>
-            ))}
-          </div>
+            </>
+          )}
 
           {/* Skills */}
           <div className="resume-section-title">Skills</div>
@@ -320,22 +372,30 @@ const getTemplate = (templateId, form) => {
           )}
 
           {/* Education */}
-          <div className="resume-section-title">Education</div>
-          <div className="resume-card-list">
-            {form?.education?.map((edu, idx) => (
-              <div key={idx} className="resume-card">
-                <div className="resume-title-container">
-                  <div className="resume-card-title">
-                    {edu?.degree}, {edu?.field}
-                  </div>
-                  <div className="resume-card-dates">
-                    {edu?.start} - {edu?.end}
-                  </div>
-                </div>
-                <div className="resume-card-subtitle">{edu?.school}</div>
+          {form?.education && form?.education?.length > 0 && (
+            <>
+              <div className="resume-section-title">Education</div>
+              <div className="resume-card-list">
+                {form?.education?.map((edu, idx) => {
+                  if (edu?.school?.length === 0 || edu?.degree?.length === 0)
+                    return;
+                  return (
+                    <div key={idx} className="resume-card">
+                      <div className="resume-title-container">
+                        <div className="resume-card-title">
+                          {edu?.degree}, {edu?.field}
+                        </div>
+                        <div className="resume-card-dates">
+                          {edu?.start} - {edu?.end}
+                        </div>
+                      </div>
+                      <div className="resume-card-subtitle">{edu?.school}</div>
+                    </div>
+                  );
+                })}
               </div>
-            ))}
-          </div>
+            </>
+          )}
         </div>
       );
 
