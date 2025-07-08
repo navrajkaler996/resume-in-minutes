@@ -42,7 +42,7 @@ export default function Accordion({
           {suggestions.length > 0 ? (
             <ul className="list-none space-y-3">
               {[...new Set(suggestions)].map((suggestion, idx) => (
-                <li key={idx} className="flex items-center text-gray-800">
+                <li key={idx} className="flex items-start text-gray-800">
                   <span className={`${iconColor} text-xl mr-2`}>{icon}</span>
                   <span>{suggestion}</span>
                 </li>

@@ -17,7 +17,7 @@ export async function generateExperience(userInputArray) {
     const results = await Promise.all(
       userInputArray.map(async (exp) => {
         if (exp?.jobTitle?.length === 0) return;
-        const prompt = `Write 3 bullet points for a resume experience section based on this: ${exp.description}. Note: just give the points and separate each of them with a *`;
+        const prompt = `Write 7 bullet points for a resume experience section based on this: ${exp.description}. Note: just give the points and separate each of them with a *`;
         const result = await model.generateContent(prompt);
         const response = await result.response;
         const text = response.text();

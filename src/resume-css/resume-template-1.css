@@ -3,14 +3,17 @@
 #resume-content {
     background: #fff;
     padding: 1.5rem;
-    border-radius: 0.5rem;
+
     color: #1a202c; /* Tailwind's gray-900 */
-    height: 1122px;
+    min-height: 1122px;
+
     max-width: 794px;
     font-family: Arial, sans-serif;
     box-shadow: 0 4px 6px -1px rgba(107, 114, 128, 0.5);
     border: 1px solid #d1d5db; /* Tailwind's gray-300 */
     font-size: 14px;
+    overflow: visible;
+    position: relative;
   }
   
   #resume-content h1 {
@@ -117,3 +120,16 @@
     margin-top: 0.25rem;
   }
   
+  .danger-overlay {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(220, 38, 38, 0.3); /* red-600 with opacity */
+    pointer-events: none;
+    z-index: 10;
+    transition: height 0.3s;
+    border-bottom-right-radius: .9rem;
+    border-bottom-left-radius: 0.9rem;
+
+  }

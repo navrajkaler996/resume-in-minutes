@@ -1,9 +1,22 @@
-const getTemplate = (templateId, form) => {
-  console.log(templateId, "sasa");
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
+
+const getTemplate = (templateId, form, overflowHeight, contentRef) => {
+  const [newHeight, setNewHeight] = useState(1122);
+
+  useEffect(() => {
+    setNewHeight((prev) => Number(prev) + overflowHeight);
+  }, [overflowHeight]);
+
+  console.log(newHeight);
+
   switch (templateId) {
     case 1:
       return (
-        <div id="resume-content" className="resume-content">
+        <div
+          id="resume-content"
+          className="resume-content"
+          ref={contentRef}
+          style={{ height: `${newHeight}px` }}>
           <h1>{form?.name}</h1>
           <p className="target-roles">{form?.role}</p>
           <div className="contact-row">
@@ -105,6 +118,11 @@ const getTemplate = (templateId, form) => {
                 );
               })}
             </>
+          )}
+          {overflowHeight > 0 && (
+            <div
+              className="danger-overlay"
+              style={{ height: overflowHeight + "px" }}></div>
           )}
         </div>
       );
