@@ -7,7 +7,7 @@
     color: #1a202c; /* Tailwind's gray-900 */
     min-height: 1122px;
 
-    max-width: 794px;
+   width: 794px;
     font-family: Arial, sans-serif;
     box-shadow: 0 4px 6px -1px rgba(107, 114, 128, 0.5);
     border: 1px solid #d1d5db; /* Tailwind's gray-300 */
@@ -20,16 +20,11 @@
     font-size: 2.25rem; /* text-4xl */
     font-weight: bold;
   }
-  
-  #resume-content .target-roles {
-    font-weight: bold;
-    font-size: 1.125rem; /* text-lg */
-    margin-bottom: 0.5rem;
-  }
-  
+
   #resume-content .contact-row {
     display: flex;
-    gap: 12.5rem; /* gap-50 (50 * 0.25rem) */
+    justify-content: space-between;
+
     margin-bottom: 0.5rem;
   }
   
@@ -133,3 +128,63 @@
     border-bottom-left-radius: 0.9rem;
 
   }
+
+
+  /* resume-editable.css */
+
+.resume-editable-label {
+
+  color: #1e293b; /* slate-800 */
+  cursor: pointer;
+  transition: text-decoration 0.2s;
+
+}
+
+.resume-editable-label:hover,
+.resume-editable-label:focus {
+  text-decoration: underline;
+}
+
+.resume-editable-input-1 {
+
+  color: #1e293b;
+  border: none;
+  outline: none;
+}
+
+.resume-editable-input-heading-1 {
+  font-weight: bold;
+  font-size: 2.5rem;
+  text-align: left;
+
+}
+
+.resume-editable-input-experience-point {
+  width: 100%;
+}
+
+
+.resume-header-name-1 {
+  font-size: 2.5rem;
+  font-weight: bold;
+
+
+  width: 100%;
+}
+
+.resume-header-role-1 {
+  font-size: 1.25rem;
+  font-weight: 400;
+  margin-bottom: 0.25rem;
+
+  width: 100%;
+}
+
+.resume-editable-input-1.target-roles {
+
+  font-size: 1.25rem; /* text-lg */
+  margin-bottom: 0.25rem;
+
+
+ 
+}

@@ -29,6 +29,8 @@ function Preview() {
   const [score, setScore] = useState(0);
   const [suggestions, setSuggestions] = useState([]);
 
+  const [isDownloading, setIsDownloading] = useState(false);
+
   useEffect(() => {
     const scoreTemp = calculateResumeScore(form);
     const suggestionsTemp = getSuggestions(form);
@@ -41,9 +43,12 @@ function Preview() {
 
   //Function to download PDF
   const downloadPDF = async () => {
+    setIsDownloading(true);
+
+    await new Promise((resolve) => setTimeout(resolve, 100)); // 100ms is usually enough
     const element = document.getElementById("resume-content");
-    console.log(element.scrollHeight);
     html2pdf(element);
+    setIsDownloading(false);
   };
 
   const contentRef = useRef(null);
@@ -66,7 +71,13 @@ function Preview() {
         <div className=" w-2/3min-h-screen bg-custom-gradient  p-6  flex flex-col justify-center items-center font-primary-regular">
           {templateid > 0 &&
             form &&
-            getTemplate(Number(templateid), form, overflowHeight, contentRef)}
+            getTemplate(
+              Number(templateid),
+              form,
+              overflowHeight,
+              contentRef,
+              isDownloading
+            )}
         </div>
 
         <div className="flex flex-col items-center relative w-1/3 p-6">
