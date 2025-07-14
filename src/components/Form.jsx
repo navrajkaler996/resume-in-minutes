@@ -278,20 +278,20 @@ function Form({ step, setStep }) {
   }
 
   return (
-    <div className="flex flex-col w-full">
-      <div className="bg-white shadow-gray-500  p-6 rounded-lg w-full  overflow-y-auto h-fit mx-auto font-primary-regular flex gap-6">
-        <div className="w-2/3">
-          <h2 className="text-2xl font-semibold mb-6 mt-3 tracking-wider text-center">
+    <div className="flex flex-col w-full min-h-screen">
+      <div className="bg-white shadow-gray-500 p-4 sm:p-6 rounded-lg w-full max-w-7xl mx-auto font-primary-regular flex flex-col md:flex-row gap-4 sm:gap-6">
+        <div className="w-full md:w-2/3">
+          <h2 className="text-xl sm:text-2xl font-semibold mb-4 sm:mb-6 mt-3 tracking-wider text-center">
             {step === 1 && "Personal Details"}
             {step === 2 && "Educational History"}
             {step === 3 && "Employment History"}
             {step === 4 && "Projects"}
-            {step === 5 && "Additonal info"}
+            {step === 5 && "Additional Info"}
           </h2>
 
           {/* Step 1: Personal Info */}
           {step === 1 && (
-            <div className="grid grid-cols-2 gap-x-6 gap-y-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 sm:gap-x-6 gap-y-4">
               <div>
                 <InputField
                   label="Full Name"
@@ -379,7 +379,7 @@ function Form({ step, setStep }) {
             <>
               {form.education.map((entry, index) => (
                 <div key={index} className="mb-6 border-b pb-4">
-                  <div className="grid grid-cols-2 gap-x-6 gap-y-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 sm:gap-x-6 gap-y-4">
                     <InputField
                       label="School / University"
                       name="school"
@@ -418,7 +418,6 @@ function Form({ step, setStep }) {
                   </div>
                 </div>
               ))}
-
               <button
                 type="button"
                 onClick={addEducation}
@@ -432,7 +431,7 @@ function Form({ step, setStep }) {
             <>
               {form.experience.map((job, index) => (
                 <div key={index} className="mb-6 border-b pb-4">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 sm:gap-x-6 gap-y-4">
                     <InputField
                       label="Job Title"
                       name="jobTitle"
@@ -440,7 +439,6 @@ function Form({ step, setStep }) {
                       onChange={(e) => handleExperienceChange(index, e)}
                       placeholder="Frontend Developer"
                     />
-
                     <InputField
                       label="Company"
                       name="company"
@@ -474,8 +472,7 @@ function Form({ step, setStep }) {
                       onChange={(e) => handleExperienceChange(index, e)}
                       placeholder="Jun 2023"
                     />
-                    {/* Make the description span both columns */}
-                    <div className="md:col-span-2">
+                    <div className="sm:col-span-2">
                       <Textarea
                         label="Job Description"
                         name="description"
@@ -487,7 +484,6 @@ function Form({ step, setStep }) {
                   </div>
                 </div>
               ))}
-
               <button
                 type="button"
                 onClick={addExperience}
@@ -501,7 +497,7 @@ function Form({ step, setStep }) {
             <>
               {form.projects.map((project, index) => (
                 <div key={index} className="mb-6 border-b pb-4">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 sm:gap-x-6 gap-y-4">
                     <InputField
                       label="Project Title"
                       name="title"
@@ -523,8 +519,7 @@ function Form({ step, setStep }) {
                       onChange={(e) => handleProjectChange(index, e)}
                       placeholder="https://github.com/yourproject"
                     />
-                    {/* Make the description span both columns */}
-                    <div className="md:col-span-2">
+                    <div className="sm:col-span-2">
                       <Textarea
                         label="Project Description"
                         name="description"
@@ -547,13 +542,13 @@ function Form({ step, setStep }) {
 
           {step === 5 && (
             <>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4 mb-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 sm:gap-x-6 gap-y-4 mb-4">
                 <InputField
-                  label="Your role"
+                  label="Your Role"
                   name="role"
                   value={form.role}
                   onChange={handleChange}
-                  placeholder="e.g. Fullstack developer"
+                  placeholder="e.g. Fullstack Developer"
                 />
                 <InputField
                   label="Target Job Roles (separated by commas)"
@@ -569,10 +564,9 @@ function Form({ step, setStep }) {
                   onChange={handleChange}
                   placeholder="e.g. JavaScript, React, Team Leadership"
                 />
-                {/* Empty div to keep grid alignment if you want only 3 fields in the first row */}
-                <div></div>
-                {/* Summary textarea spanning both columns */}
-                <div className="md:col-span-2">
+                <div className="hidden sm:block"></div>{" "}
+                {/* Spacer for grid alignment */}
+                <div className="sm:col-span-2">
                   <Textarea
                     label="Professional Summary"
                     name="summary"
@@ -587,15 +581,14 @@ function Form({ step, setStep }) {
           )}
         </div>
 
-        <div className="w-1/3  pl-2 pr-2">
-          <h2 className="text-2xl font-semibold mb-6 mt-3 tracking-wider text-center">
-            Tips{" "}
+        <div className="w-full md:w-1/3 pl-2 pr-2">
+          <h2 className="text-xl sm:text-2xl font-semibold mb-4 sm:mb-6 mt-3 tracking-wider text-center">
+            Tips
           </h2>
           <div className="text-sm text-black text-left">
             <ul className="list-disc list-inside space-y-1">
               {step === 1 && (
                 <>
-                  {" "}
                   <li className="mb-4">
                     Choose an email that includes your name and avoids nicknames
                     or unprofessional phrases.
@@ -688,18 +681,17 @@ function Form({ step, setStep }) {
           </div>
         </div>
       </div>
-      <div className="border-t-0 w-2/3 flex justify-between bg-white">
+      <div className="border-t-0 w-full max-w-7xl mx-auto flex flex-col sm:flex-row justify-between bg-white px-4 sm:px-10 py-2">
         {step !== 1 ? (
           <Button
-            className="mb-4 mt-2 ml-10 bg-gray-500 hover:bg-gray-700"
+            className="mb-4 sm:mb-0 mt-2 bg-gray-500 hover:bg-gray-700"
             onClick={prevStep}>
             Back
           </Button>
         ) : (
-          <div />
+          <div className="hidden sm:block" />
         )}
-
-        <Button className="mb-4 mt-2 mr-10 " onClick={nextStep}>
+        <Button className="mt-2" onClick={nextStep}>
           Next
         </Button>
       </div>

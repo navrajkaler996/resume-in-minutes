@@ -67,8 +67,9 @@ function Preview() {
   return (
     <>
       <Navbar />
-      <div className="flex justify-between w-full p-6 mt-10">
-        <div className=" w-2/3min-h-screen bg-custom-gradient  p-6  flex flex-col justify-center items-center font-primary-regular">
+
+      <div className="flex flex-col md:flex-row justify-between w-full p-4 sm:p-6 mt-4 sm:mt-10 max-w-7xl mx-auto">
+        <div className="w-full md:w-2/3 min-h-[50vh] bg-custom-gradient p-4 sm:p-6 flex flex-col justify-center items-center font-primary-regular">
           {templateid > 0 &&
             form &&
             getTemplate(
@@ -80,30 +81,26 @@ function Preview() {
             )}
         </div>
 
-        <div className="flex flex-col items-center relative w-1/3 p-6">
+        <div className="w-full md:w-1/3 p-4 sm:p-6 flex flex-col items-center">
           <Gauge value={score} />
           <div
-            className={`mt-6 flex flex-col justify-center items-center p-6 rounded-xl font-primary-regular ${getColorClasses(
+            className={`mt-4 sm:mt-6 flex flex-col justify-center items-center p-4 sm:p-6 rounded-xl font-primary-regular ${getColorClasses(
               score
             )}`}>
-            <span className="text-7xl font-primary-regular mb-5">{score}%</span>
-            <p className="text-2xl font-primary-regular">Resume strength</p>
-          </div>
-          {/* 
-          <div className="overflow-warning w-full pt-2 pb-2 text-red-900 text-center  rounded-xl flex items-center ">
-            <img src={alarmIcon} className=" text-xl w-auto h-6 ml-5 mr-2" />
-            <p className="font-primary-regular">
-              {" "}
-              Your resume is crossing into the second page!{" "}
+            <span className="text-5xl sm:text-7xl font-primary-regular mb-3 sm:mb-5">
+              {score}%
+            </span>
+            <p className="text-lg sm:text-2xl font-primary-regular">
+              Resume strength
             </p>
-          </div> */}
+          </div>
 
           {overflowHeight > 0 && (
             <Accordion
               title={messages.SECOND_PAGE_OVERFLOW}
               icon="❗"
               iconColor="text-red-500"
-              headerBg="bg-red-600/30 "
+              headerBg="bg-red-600/30"
               borderColor="border-red-400"
               bodyBg="bg-red-100"
               bodyBorder="border-red-200"
@@ -149,23 +146,18 @@ function Preview() {
           )}
 
           <div
-            className="flex items-center mt-10 pr-6 pl-6 pt-2 pb-2
-                    text-theme-2 border-1 border-theme-2 rounded-md
-                    bg-transparent
-                    hover:bg-theme-1 hover:text-white
-                    cursor-pointer transition
-                    self-end
-                  "
+            className="flex items-center mt-6 sm:mt-10 pr-4 sm:pr-6 pl-4 sm:pl-6 pt-2 pb-2 text-theme-2 border border-theme-2 rounded-md bg-transparent hover:bg-theme-1 hover:text-white cursor-pointer transition self-end"
             onClick={downloadPDF}>
-            <img src={downloadButton} className="w- h-5" alt="Download" />
+            <img src={downloadButton} className="w-auto h-5" alt="Download" />
             <span className="font-primary-regular ml-4 text-sm">
               Download PDF
             </span>
           </div>
-          <span className="absolute bottom-5 rounded-xl pt-1 pb-1 pr-3 pl-3 bg-red-600/30 font-primary-regular left-0">
-            {" "}
-            Second page{" "}
-          </span>
+          {overflowHeight > 0 && (
+            <span className="mt-4 rounded-xl pt-1 pb-1 pr-3 pl-3 bg-red-600/30 font-primary-regular text-sm">
+              Second page
+            </span>
+          )}
         </div>
       </div>
     </>
