@@ -1,9 +1,9 @@
 import { Routes, Route } from "react-router-dom";
 import Home from "./screens/Home";
-import Form from "./components/Form";
+
 import Preview from "./components/Preview";
 import FormScreen from "./screens/FormScreen";
-import TemplateScreen from "./screens/templateScreen";
+import TemplateScreen from "./screens/TemplateScreen";
 
 function App() {
   return (
