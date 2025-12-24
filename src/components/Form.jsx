@@ -24,58 +24,46 @@ function Form({ step, setStep }) {
   const { templateid } = useParams();
 
   const [form, setForm] = useState({
-    role: "Fullstack developer",
-    name: "John Doe",
-    email: "john.doe@example.com",
-    phone: "+1 555-1234",
-    address: "123 Main Street",
-    city: "Toronto",
-    province: "Ontario",
+    role: "",
+    name: "",
+    email: "",
+    phone: "",
+    address: "",
+    city: "",
+    province: "",
     linkedin: "",
     website: "",
     education: [
       {
-        school: "University of Toronto",
-        degree: "Bachelor of Science",
-        field: "Computer Science",
-        start: "2019",
-        end: "2023",
+        school: "",
+        degree: "",
+        field: "",
+        start: "",
+        end: "",
       },
     ],
     experience: [
       {
-        jobTitle: "Frontend Developer",
-        company: "Google",
-        location: "Toronto, ON",
-        startDate: "Jan 2020",
-        endDate: "Jun 2023",
+        jobTitle: "",
+        company: "",
+        location: "",
+        startDate: "",
+        endDate: "",
         keyPoints: "",
-        description:
-          "Developed and maintained user interfaces with React. Collaborated with design and backend teams to deliver high-quality features on schedule.",
-      },
-      {
-        jobTitle: "Full stack Developer",
-        company: "Meta",
-        location: "New york city, NY",
-        startDate: "Jan 2023",
-        endDate: "Jun 2024",
-        keyPoints: "",
-        description:
-          "Worked as a full stack developer using Next.js, Node.js, and SQL",
+        description: "",
       },
     ],
     projects: [
       {
-        title: "Resume builder",
-        description:
-          "This project is developed using react and tailwindcss on frontend while Node and express are used in the background",
-        technologies: "React, TailwindCSS, Node.js, Express.js",
-        link: "www.resumebuilder.com",
+        title: "",
+        description: "",
+        technologies: "",
+        link: "",
       },
     ],
-    targetRoles: "Frontend Developer, UI Engineer",
-    skills: "JavaScript, React, HTML, CSS, Tailwind, Git, TypeScript",
-    summary: "asasas",
+    targetRoles: "",
+    skills: "",
+    summary: "",
   });
 
   const [errors, setErrors] = useState({});
@@ -581,99 +569,98 @@ function Form({ step, setStep }) {
           )}
         </div>
 
-        <div className="w-full md:w-1/3 pl-2 pr-2">
+        <div className="w-full md:w-1/3 rounded-xl ">
           <h2 className="text-xl sm:text-2xl font-semibold mb-4 sm:mb-6 mt-3 tracking-wider text-center">
             Tips
           </h2>
-          <div className="text-sm text-black text-left">
-            <ul className="list-disc list-inside space-y-1">
+          <div className="text-sm text-gray-700 text-left">
+            <ul className="space-y-3">
               {step === 1 && (
                 <>
-                  <li className="mb-4">
+                  <li className="flex items-start gap-2">
+                    <span className="text-yellow-400 mt-1">⚡</span>
                     Choose an email that includes your name and avoids nicknames
                     or unprofessional phrases.
                   </li>
-                  <li className="mb-4">Use a number you answer regularly.</li>
-                  <li className="mb-4">
+                  <li className="flex items-start gap-2">
+                    <span className="text-yellow-400 mt-1">⚡</span>
+                    Use a number you answer regularly.
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-yellow-400 mt-1">⚡</span>
                     Include your LinkedIn URL if your profile is up to date and
                     matches your resume.
                   </li>
-                  <li className="mb-4">
-                    Only include your website if it showcases your work (e.g.,
-                    portfolio, GitHub, personal site).
+                  <li className="flex items-start gap-2">
+                    <span className="text-yellow-400 mt-1">⚡</span>
+                    Only include your website if it showcases your work
+                    (portfolio, GitHub, personal site).
                   </li>
-                  <li className="mb-4">
+                  <li className="flex items-start gap-2">
+                    <span className="text-yellow-400 mt-1">⚡</span>
                     City and province/state are usually sufficient.
                   </li>
                 </>
               )}
+
               {step === 2 && (
                 <>
-                  <li className="mb-2">
+                  <li className="flex items-start gap-2">
+                    <span className="text-yellow-400 mt-1">📌</span>
                     List your most recent education first.
                   </li>
-                  <li className="mb-2">
+                  <li className="flex items-start gap-2">
+                    <span className="text-yellow-400 mt-1">📌</span>
                     Avoid listing high school if you have a college degree
                     unless specifically requested.
                   </li>
                 </>
               )}
+
               {step === 3 && (
                 <>
-                  <li className="mb-2">
+                  <li className="flex items-start gap-2">
+                    <span className="text-yellow-400 mt-1">✔️</span>
                     List your most recent job first and work backward through
                     your last 10 years of employment.
                   </li>
-                  <li className="mb-2">
+                  <li className="flex items-start gap-2">
+                    <span className="text-yellow-400 mt-1">✔️</span>
                     Include key details for each job, such as job title,
                     company, location, and dates.
                   </li>
-                  <li className="mb-2">
+                  <li className="flex items-start gap-2">
+                    <span className="text-yellow-400 mt-1">✔️</span>
                     Focus on achievements over duties to show your impact.
-                  </li>
-                  <li className="mb-2">
-                    Use numbers, percentages, or dollar amounts to make your
-                    contributions clear and compelling.
-                  </li>
-                  <li className="mb-2">
-                    Use keywords and skills from the job description to show
-                    you’re a perfect fit.
-                  </li>
-                  <li className="mb-2">
-                    Show career progression and recognition by listing
-                    promotions or notable awards.
                   </li>
                 </>
               )}
+
               {step === 4 && (
                 <>
-                  <li className="mb-2">
+                  <li className="flex items-start gap-2">
+                    <span className="text-yellow-400 mt-1">💡</span>
                     List projects that best demonstrate your skills and are most
                     relevant to the job or field you’re targeting.
                   </li>
-                  <li className="mb-2">
+                  <li className="flex items-start gap-2">
+                    <span className="text-yellow-400 mt-1">💡</span>
                     Summarize what the project does, its purpose, and your role
                     in it.
                   </li>
-                  <li className="mb-2">
-                    If available, provide a link to the project (GitHub, live
-                    demo, portfolio, etc.).
-                  </li>
                 </>
               )}
+
               {step === 5 && (
                 <>
-                  <li className="mb-2">
+                  <li className="flex items-start gap-2">
+                    <span className="text-yellow-400 mt-1">✨</span>
                     Clearly define your role. It should match as much as it can
                     with your experience and skills.
                   </li>
-                  <li className="mb-2">
-                    Only include target roles that are relevant and meaningful,
-                    as these will help shape your resume summary.
-                  </li>
-                  <li className="mb-2">
-                    Make sure your listed skills align with your roles,
-                    experience, and targeted positions.
+                  <li className="flex items-start gap-2">
+                    <span className="text-yellow-400 mt-1">✨</span>
+                    Only include target roles that are relevant and meaningful.
                   </li>
                 </>
               )}
@@ -684,14 +671,16 @@ function Form({ step, setStep }) {
       <div className="border-t-0 w-full max-w-7xl mx-auto flex flex-col sm:flex-row justify-between bg-white px-4 sm:px-10 py-2">
         {step !== 1 ? (
           <Button
-            className="mb-4 sm:mb-0 mt-2 bg-gray-500 hover:bg-gray-700"
+            className="px-6 py-1 text-slate-900 bg-gradient-to-r from-yellow-400 to-yellow-500 border-none shadow-md hover:shadow-lg transition"
             onClick={prevStep}>
             Back
           </Button>
         ) : (
           <div className="hidden sm:block" />
         )}
-        <Button className="mt-2" onClick={nextStep}>
+        <Button
+          className="px-6 py-1 text-slate-900 bg-gradient-to-r from-yellow-400 to-yellow-500 border-none shadow-md hover:shadow-lg transition"
+          onClick={nextStep}>
           Next
         </Button>
       </div>

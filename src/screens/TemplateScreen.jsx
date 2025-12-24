@@ -7,39 +7,67 @@ import { useState } from "react";
 
 const TemplateScreen = () => {
   const navigate = useNavigate();
-
   const [selectedTemplate, setSelectedTemplate] = useState(null);
+
+  const handleSelect = (id) => {
+    setSelectedTemplate(id);
+    navigate(`/form/${id}`);
+  };
 
   return (
     <>
-      <Navbar />
-      <div className="min-h-screen w-full bg-custom-gradient p-4 sm:p-6 font-primary-regular flex flex-col items-center justify-center">
-        <div className="flex flex-col items-center w-full max-w-5xl">
-          <h2 className="text-xl sm:text-2xl font-semibold mb-4 sm:mb-6 mt-4 sm:mt-6 tracking-wide text-center">
-            Choose a Template
+      <div className="min-h-screen w-full bg-gray-50 px-4 sm:px-6 py-14 font-primary-regular flex flex-col items-center">
+        <div className="absolute top-5 left-10 max-w-7xl mx-auto flex items-center">
+          <span className="text-2xl font-extrabold tracking-wide text-gray-900">
+            Resume <span className="text-yellow-500">In Minutes</span>
+          </span>
+        </div>
+        <div className="flex flex-col items-center w-full max-w-6xl mt-10">
+          {/* Heading */}
+          <h2 className="text-2xl sm:text-3xl font-bold tracking-wide text-gray-900 text-center mb-2">
+            Choose a Resume Template
           </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 mt-4 sm:mt-6">
-            <img
-              id="1"
-              src={Template1}
-              className="w-full sm:w-64 md:w-80 h-auto border border-gray-300 cursor-pointer transition-transform duration-300 hover:scale-105 sm:hover:scale-110"
-              onClick={(e) => navigate(`/form/${e.target.id}`)}
-              alt="Template 1 Preview"
-            />
-            <img
-              id="2"
-              src={Template2}
-              className="w-full sm:w-64 md:w-80 h-auto border border-gray-300 cursor-pointer transition-transform duration-300 hover:scale-105 sm:hover:scale-110"
-              onClick={(e) => navigate(`/form/${e.target.id}`)}
-              alt="Template 2 Preview"
-            />
-            <img
-              id="3"
-              src={Template3}
-              className="w-full sm:w-64 md:w-80 h-auto border border-gray-300 cursor-pointer transition-transform duration-300 hover:scale-105 sm:hover:scale-110"
-              onClick={(e) => navigate(`/form/${e.target.id}`)}
-              alt="Template 3 Preview"
-            />
+
+          <p className="text-gray-600 text-sm sm:text-base text-center mb-12 max-w-xl">
+            Pick a clean, professional layout designed for recruiters and ATS
+            systems.
+          </p>
+
+          {/* Templates */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-18 ">
+            {[
+              { id: 1, img: Template1 },
+              { id: 2, img: Template2 },
+              { id: 3, img: Template3 },
+            ].map((template) => (
+              <div
+                key={template.id}
+                onClick={() => handleSelect(template.id)}
+                className={`group cursor-pointer rounded-xl overflow-hidden bg-white transition-transform duration-500 ease-in-out
+    ${
+      selectedTemplate === template.id
+        ? "ring-2 ring-yellow-400 shadow-lg scale-105"
+        : "ring-1 ring-gray-200 hover:ring-yellow-400/50 hover:shadow-md hover:scale-125"
+    }
+  `}
+                style={{ width: "260px" }}>
+                {/* Image */}
+                <div className="relative bg-gray-100 overflow-hidden rounded-t-lg">
+                  <img
+                    src={template.img}
+                    alt={`Template ${template.id} Preview`}
+                    className="w-full h-[360px] object-cover"
+                  />
+                </div>
+
+                {/* Footer */}
+                <div className="px-4 py-3 text-center border-t border-gray-200 bg-gray-50">
+                  <p className="text-sm font-medium text-gray-800">
+                    Template {template.id}
+                  </p>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>

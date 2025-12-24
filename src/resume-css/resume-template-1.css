@@ -1,102 +1,104 @@
 /* resume.css */
 
-#resume-content {
+#resume-content-1 {
     background: #fff;
     padding: 1.5rem;
+    padding-top: .8rem;
 
     color: #1a202c; /* Tailwind's gray-900 */
     min-height: 1122px;
 
    width: 794px;
-    font-family: Arial, sans-serif;
-    box-shadow: 0 4px 6px -1px rgba(107, 114, 128, 0.5);
-    border: 1px solid #d1d5db; /* Tailwind's gray-300 */
-    font-size: 14px;
+    /* font-family: 'Times New Roman', Times, serif; */
+
+    border: .5px solid #d1d5db; /* Tailwind's gray-300 */
+    /* font-size: 0.875rem; */
     overflow: visible;
     position: relative;
   }
   
-  #resume-content h1 {
+  #resume-content-1 h1 {
     font-size: 2.25rem; /* text-4xl */
     font-weight: bold;
   }
 
-  #resume-content .contact-row {
+  #resume-content-1 .contact-row {
     display: flex;
     justify-content: space-between;
 
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.2rem;
   }
   
-  #resume-content .contact-row p {
+  #resume-content-1 .contact-row p {
     margin: 0;
   }
   
-  #resume-content .address {
-    margin-bottom: 0.5rem;
+  #resume-content-1 .address {
+    margin-bottom: 0.2rem;
   }
   
-  #resume-content .summary {
-    margin-bottom: 0.5rem;
+  #resume-content-1 .summary {
+    margin-bottom: 0.2rem;
+    padding-left: 0;
   }
   
-  #resume-content hr {
+  #resume-content-1 hr {
   margin-top: 1rem;
     border-color: #d1d5db;
   }
   
-  #resume-content h2 {
+  #resume-content-1 h2 {
     font-size: 1.625rem; /* text-[26px] */
     font-weight: 600;
     margin-top: 0.5rem;
-    margin-bottom: 0.5rem;
+
   }
   
-  #resume-content .experience-entry {
-    margin-bottom: 0.5rem;
+  #resume-content-1 .experience-entry {
+    margin-bottom: 0.2rem;
   }
   
-  #resume-content .experience-entry .job-title {
+  #resume-content-1 .experience-entry .job-title {
     font-size: 1.125rem;
     font-weight: bold;
   }
   
-  #resume-content .company-location {
+  #resume-content-1 .company-location {
     text-transform: capitalize
   }
 
-  #resume-content .experience-entry .date-range {
+  #resume-content-1 .experience-entry .date-range {
     font-size: 1rem;
   }
   
-  #resume-content .experience-entry ul {
+  #resume-content-1 .experience-entry ul {
     list-style-type: disc;
     padding-left: 1.5rem;
   }
   
-  #resume-content .experience-entry li {
-    font-size: 0.875rem;
+  #resume-content-1 .experience-entry li {
+    /* font-size: 0.875rem; */
     margin-top: 0.25rem;
   }
   
-  #resume-content .skills-section {
-    font-size: 0.875rem;
+  #resume-content-1 .skills-section {
+       font-size: 1.125rem;
   }
   
-  #resume-content .skills-section span {
+  #resume-content-1 .skills-section span {
 
   }
   
-  #resume-content .education-entry {
-    margin-bottom: 0.5rem;
+  #resume-content-1 .education-entry {
+    margin-bottom: 0.2rem;
   }
   
-  #resume-content .education-entry strong {
+  #resume-content-1 .education-entry strong {
     font-weight: bold;
   }
   
   .project-entry {
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.2rem;
   }
   .project-title {
     font-size: 1.125rem;
@@ -111,7 +113,7 @@
     padding-left: 1.5rem;
   }
   .project-entry li {
-    font-size: 0.875rem;
+    /* font-size: 0.875rem; */
     margin-top: 0.25rem;
   }
   

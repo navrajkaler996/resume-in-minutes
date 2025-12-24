@@ -1,149 +1,212 @@
 /* Container */
-
-#resume-content {
+#resume-content-2 {
     background: #fff;
     padding: 1.5rem;
     border-radius: 1rem;
-    color: #1a202c; /* Tailwind's gray-900 */
+    color: #1a202c;
     height: 1122px;
     max-width: 794px;
-    font-family: Arial, sans-serif;
+    font-family: 'Segoe UI', 'Roboto', Arial, sans-serif; /* Removed duplicate */
     box-shadow: 0 4px 6px -1px rgba(107, 114, 128, 0.5);
-    border: 1px solid #d1d5db; /* Tailwind's gray-300 */
+    border: 1px solid #d1d5db;
     font-size: 14px;
-    font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
-  }
-  
-  /* Header */
-  .resume-header {
+    position: relative; /* Added for overflow overlay */
+    overflow: hidden; /* Added to contain overflow */
+}
+
+/* Header */
+.resume-header {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: flex-start;
     border-bottom: 2px solid #e2e8f0;
-    padding-bottom: .5rem;
+    padding-bottom: 0.5rem;
     margin-bottom: 1rem;
-  }
-  
-  @media (min-width: 768px) {
+}
+
+@media (min-width: 768px) {
     .resume-header {
-      flex-direction: row;
-      align-items: center;
+        flex-direction: row;
+        align-items: center;
     }
-  }
-  
-  .resume-header-name {
+}
+
+.resume-header-name {
     font-size: 2.5rem;
     font-weight: bold;
     margin-bottom: 0.25rem;
-  }
-  
-  .resume-header-role {
-    font-size: 1.25rem;
+    cursor: pointer; /* Added for click indication */
+}
 
+.resume-header-role {
+    font-size: 1.25rem;
     margin-bottom: 0.5rem;
-  }
-  
-  .resume-header-contact {
+    cursor: pointer; /* Added for click indication */
+}
+
+.resume-header-contact {
     font-size: 1rem;
     color: #64748b;
     text-align: right;
     margin-top: 1rem;
-  }
-  
-  .resume-header-contact span {
+}
+
+@media (min-width: 768px) {
+    .resume-header-contact {
+        margin-top: 0;
+        text-align: right;
+    }
+}
+
+.resume-header-contact > div {
+    margin-bottom: 0.25rem; /* Added spacing between contact items */
+}
+
+.resume-header-contact span {
     font-weight: 600;
     margin-right: 0.3em;
-  }
-  
-  /* Section Titles */
-  .resume-section-title {
+    cursor: pointer; /* Added for editable spans */
+}
+
+/* Section Titles */
+.resume-section-title {
     font-size: 1.5rem;
     font-weight: 600;
     display: flex;
     align-items: center;
     gap: 0.5rem;
     color: #0f172a;
-  }
-  
-  /* Summary */
-  .resume-summary {
-    margin-bottom: .5rem;
-    color: #475569;
-  }
-  
-  /* Experience, Projects, Education Cards */
-  .resume-card-list {
+    margin-top: 1rem; /* Added spacing */
+    margin-bottom: 0.5rem; /* Added spacing */
+}
+
+/* Summary */
+.resume-summary {
+    margin-bottom: 0.5rem;
+    line-height: 1.6; /* Added for readability */
+    cursor: pointer; /* Added for click indication */
+    padding: 0.25rem 1.25rem; /* Added consistent padding */
+}
+
+/* Experience, Projects, Education Cards */
+.resume-card-list {
     display: grid;
+    gap: 0.75rem; /* Added gap between cards */
+    margin-bottom: 0.5rem;
+}
 
-    margin-bottom: .5rem;
-  }
-  
-  .resume-card {
+.resume-card {
+    padding: 0.5rem 1.25rem; /* Increased from .25rem */
+    
+}
 
-    padding: .25rem 1.25rem;
-
-  }
-
-  .resume-title-container {
+.resume-title-container {
     display: flex;
     justify-content: space-between;
-  }
-  
-  .resume-card-title {
+    align-items: flex-start; /* Added for better alignment */
+    gap: 0.5rem; /* Added spacing */
+}
+
+.resume-card-title {
     font-weight: 700;
     font-size: 1.1rem;
-  }
-  
-  .resume-card-subtitle {
+    margin-bottom: 0.25rem; /* Added spacing */
+}
+
+.resume-card-subtitle {
     color: #64748b;
     font-size: 1rem;
     margin-bottom: 0.25rem;
-  }
-  
-  .resume-card-dates {
+}
+
+.resume-card-dates {
     color: #94a3b8;
     font-size: 0.95rem;
     margin-bottom: 0.5rem;
-  }
-  
-  .resume-card ul {
+    white-space: nowrap; /* Prevent date wrapping */
+}
+
+.resume-card ul {
     margin: 0.5rem 0 0 1rem;
     color: #334155;
     font-size: 1rem;
-  }
-  
-  /* Skills Badges */
-  .resume-skills-list {
+    padding-left: 0.5rem; /* Added for better list alignment */
+}
+
+.resume-card ul li {
+    margin-bottom: 0.25rem; /* Added spacing between list items */
+    line-height: 1.5; /* Added for readability */
+}
+
+/* Skills Badges */
+.resume-skills-list {
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
-    margin-bottom: .5rem;
-    padding: .25rem 1.25rem;
+    margin-bottom: 0.5rem;
+    padding: 0.25rem 1.25rem;
     font-size: 16px;
-  }
-  
-  
-  /* Links */
-  .resume-link {
+    align-items: center; /* Added for better alignment */
+}
+
+.resume-skill-badge {
+    display: inline-flex; /* Changed from implicit */
+    align-items: center;
+}
+
+/* Links */
+.resume-link {
     color: #0000FF;
     text-decoration: underline;
     font-size: 0.78em;
     margin-left: 0.5em;
-  }
-  
-  .resume-card-tech {
+    word-break: break-all; /* Added to prevent overflow */
+}
+
+.resume-link:hover {
+    color: #0000CC; /* Added hover state */
+}
+
+.resume-card-tech {
     color: #0e7490;
     font-size: 0.97em;
     margin-bottom: 0.3em;
-  }
-  
+    font-weight: 500; /* Added for emphasis */
+}
 
-  .resume-editable-input-2 {
+/* Editable Inputs */
+.resume-editable-input,
+.resume-editable-input-2,
+.resume-editable-input-heading,
+.resume-editable-input-experience-point,
+.resume-editable-input-project-point,
+.target-roles {
     border: none;
-    outline: none;
-    background: transparent;
-    padding: 0;
+    outline: 2px solid #3b82f6; /* Added visible outline when editing */
+    background: #eff6ff; /* Added subtle background */
+    padding: 0.25rem;
     font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
     width: 100%;
-  }
+    border-radius: 0.25rem; /* Added for polish */
+}
+
+.resume-editable-input-heading {
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+
+.target-roles {
+    font-size: 1.25rem;
+}
+
+/* Danger Overlay for Overflow */
+.danger-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(239, 68, 68, 0.2), transparent);
+    pointer-events: none;
+    border-top: 2px dashed #ef4444;
+}
